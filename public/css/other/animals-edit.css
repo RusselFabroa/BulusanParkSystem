@@ -1,0 +1,32 @@
+.form-container a{
+    float: right;
+    font-size: 20px;
+    color: #000000;
+    width: 200px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid rgb(34, 37, 28);
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px 7px;
+    margin-right:20px;
+    background-color: #1aff66;
+}
+.form-container-head{
+    background-color: #80ffaa;
+    height: 50px;
+    padding: 5px;
+}
+
+.form-container input[type=text]{
+    border: 1px solid #fab905;
+}
+.form-form{
+    padding: 10px;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.form-form edit{
+    margin-left: 20px;
+}

@@ -1,0 +1,16 @@
+.main-container{
+    top:0;
+    height:500px;
+    overflow-y:auto;
+    background-color: rgba(209, 255, 202, 0.21);
+
+}
+
+.main-panel{
+    margin-top: 70px;
+    height: 100%;
+}
+header{
+    background-color: #3c763d;
+}
+
