@@ -7,7 +7,7 @@
     box-shadow: 1px 5px #888888;
 
   }
-  
+
   /* Style the links inside the navigation bar */
   .topnav a {
     float: left;
@@ -18,19 +18,19 @@
     text-decoration: none;
     font-size: 17px;
   }
-  
+
   /* Change the color of links on hover */
   .topnav a:hover {
     background-color: #ddd;
     color: black;
   }
-  
+
   /* Add an active class to highlight the current page */
   .topnav a.active {
     background-color: #171d1b;
     color: white;
   }
-  
+
   /* Hide the link that should open and close the topnav on small screens */
   .topnav .icon {
     display: none;
@@ -42,7 +42,7 @@
 
 
   .main-panel{
-    
+
     width:70%;
     justify-content: center;
     height:500px;
@@ -94,3 +94,6 @@ textarea {
     height: 40px;
     color: #000000;
 }
+  button{
+      height: 50px;
+  }

@@ -3,6 +3,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    max-width: 100%;
 }
 .socmedia-btn{
     color: #ffffff;
@@ -218,7 +219,6 @@ display: block;
     margin-top: 5px;
     background-color: #3366cc;
     height: 120px;
-
     width:100%;
 }
 .second-menu ul{
@@ -227,13 +227,12 @@ display: block;
 .second-menu ul li{
 
     font-family: Courier;
-    margin-left: 30px;
-    padding: 10px;
+    margin-left: 10px;
+    padding: 5px;
     font-size: 27px;
     font-weight: 1000;
     position: relative;
     top: 20px;
-    list-style: none;
     display: inline-block;
     border-right: 1px solid #d8d3d3;
     border-left: 1px solid #d8d3d3;
@@ -242,20 +241,40 @@ display: block;
 .cr{
     position: block;
 }
-.cr a{
+.cr button{
     color: #d8d3d3;
+    font-weight: 1000;
+    font-size: 27px;
+    background-color: rgba(10, 88, 202, 0);
+    border: 0;
 }
-.mp a{
+.mp button{
     color: #d8d3d3;
+    font-weight: 1000;
+    font-size: 30px;
+    background-color: rgba(10, 88, 202, 0);
+    border: 0;
 }
-.pb a{
+.pb button{
     color: #d8d3d3;
+    font-weight: 1000;
+    font-size: 30px;
+    background-color: rgba(10, 88, 202, 0);
+    border: 0;
 }
-.ro a{
+.ro button{
     color: #d8d3d3;
+    font-weight: 1000;
+    font-size: 30px;
+    background-color: rgba(10, 88, 202, 0);
+    border: 0;
 }
-.jot a{
+.jot button{
     color: #d8d3d3;
+    font-weight: 1000;
+    font-size: 30px;
+    background-color: rgba(10, 88, 202, 0);
+    border: 0;
 }
 
 .second-menu ul li:hover{
@@ -280,22 +299,62 @@ position:absolute;
 
 .map-container{
     background-color: #ffffff;
+    width: 100%;
     height: 550px;
     border-bottom: 5px solid orange;
     display:flex;
+    position: relative;
 }
 
 .map1-image{
     height: 500px;
     padding: 5px;
-    margin: 1%;
+
 }
 
 .map2-image{
+    position: relative;
+    width: 100%;
     height: 500px;
     padding: 5px;
-    margin: 1%;
 }
+#close-btn{
+    z-index: 2;
+    background-color: rgba(255, 0, 0, 0);
+    padding: 2px;
+    height: 45px;
+    width: 45px;
+    position: absolute;
+    color: #f5f5f5;
+    font-size: 2rem;
+    cursor: pointer;
+    right: 2%;
+    top: 2%;
+    border: 0;
+    /*border-radius: 10px;*/
+}
+
+#close-btn:hover{
+    /*background-color: rgba(255, 0, 0, 0.8);*/
+    color: rgba(96, 29, 29, 0.44);
+}
+.calendar-container {
+    background-color: rgba(245, 245, 245, 0.27);
+    width: 100%;
+    height: 550px;
+    border-bottom: 5px solid orange;
+    display: flex;
+}
+#aboutmodals{
+    max-width:70%;
+
+}
+#aboutusbody{
+    height: 500px;
+    position: relative;
+
+}
+
 .carousel-item{
     text-align: center;
     z-index: 5;

@@ -13,6 +13,7 @@ class ReservePavillion extends Model
         protected $fillable = [
         'status',
         'date',
+            'enddate',
          'mobilenumber',
         'address',
         'note',

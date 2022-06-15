@@ -7,11 +7,12 @@ use App\Models\Animals;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class AnimalController extends Controller
 {
     public function listanimals(Request $request){
-
+//        $adminname = Auth::guard('admin')->name();
         $animals= DB::table('animals')->get();
         return view('adminsection.animals-list', compact('animals'));
     }

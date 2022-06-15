@@ -23,23 +23,29 @@ class ReserveCottageController extends Controller
 
     public function saveCottagesReserve(Request $request){
 
-        //pag-save ng image sa local storage
-            // $cottages = DB::table('cottages')->where('id', $id)->first();
-      // dd($productdata);
+      $request->validate([
+              'date'=> 'required|date|after:today',
+              'enddate'=>'required|date|after:start_date',
+              'mobilenumber'=>'required|min:11|max:11',
+              'note'=>'required',
+              'address'=>'required'
+          ]);
+
             $reserve = new Reserve;
  			$reserve->user_id = Auth::User()->id;
             $reserve->cottage_id = $request->cottage_id;
  			$reserve->amount = $request->price;
-            $reserve->reserve_date = $request['date'];  
-            $reserve->address = $request['address'];  
-            $reserve->mobilenumber = $request['mobilenumber'];  
-            $reserve->note = $request['note'];	
+            $reserve->reserve_date = $request['date'];
+             $reserve->end_date = $request['enddate'];
+            $reserve->address = $request['address'];
+            $reserve->mobilenumber = $request['mobilenumber'];
+            $reserve->note = $request['note'];
             $reserve->status = "New";
             $reserve->Save();
 
         return back()->with('cottages_update','Reserve Save Succesfully');
 
         }
-  
-  
+
+
 }

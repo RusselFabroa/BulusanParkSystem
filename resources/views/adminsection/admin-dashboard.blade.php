@@ -93,6 +93,9 @@
                             <a href="" class="sub-item">Pavillion Hall</a>
                         </div>
                     </div>
+                    <div class="item" id="item5"><a href="#"><i class="fa fa-exclamation-triangle"></i>Reports
+                            <span class="badge bg-secondary">{{$countProb}}</span>
+                        </a></div>
                     <div class="item" id="item5"><a href="#"><i class="fas fa-info-circle"></i> AboutUs</a></div>
                 </div>
         </div>
@@ -110,33 +113,33 @@
 <div class="main-panel">
 
     <div class="panel-content">
-        <h1 id="greet">Have a great day!</h1>
+{{--        <h1 id="greet">Have a great day!</h1>--}}
 
-
+{{--USER CONTENT--}}
     <div class="message-content" style="padding: 20px">
         <div class="container-sm">
             <div class="card-header">
-                User Counts
+                <h4 class="text-center">USERS</h4>
             </div>
             <div class="card-body" style="display: flex">
                 <div class="container px-4">
                     <div class="row gx-5">
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">Verified User</div>
+                                <div class="card-header"><strong>Verified User</strong></div>
 
                                 <div class="card-body">{{$totalverifiedusers}}</div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">Verified Admin</div>
+                                <div class="card-header"><strong>Verified Admin</strong></div>
                                 <div class="card-body">{{$totaladmin}}</div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card">
-                                <div class="card-header">Pending User</div>
+                                <div class="card-header"><strong>Pending User</strong></div>
                                 <div class="card-body">{{$totalnotverified}}</div>
                             </div>
                         </div>
@@ -145,11 +148,55 @@
             </div>
         </div>
     </div>
-        <div class="chart-container">
-            <h6>Charts</h6>
-        </div>
-{{--        --}}
 
+{{--   END USER     --}}
+
+        {{--chart CONTENT--}}
+        <div class="message-content" style="padding: 20px">
+            <div class="container-sm">
+                <div class="card-header">
+                    <h4 class="text-center">Pending Reservations</h4>
+                </div>
+                <div class="card-body" style="display: flex">
+                    <div class="container px-4">
+                        <div class="row gx-5">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Cottages</th>
+                                                <th>Tree House</th>
+                                                <th>Function Hall</th>
+                                                <th>Pavilion Hall</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><strong><a href="/admin/inventorycottage">{{$countCot}}</a></strong></td>
+                                                <td><strong><a href="/admin/inventorytreehouse">{{$countTre}}</a></strong></td>
+                                                <td><strong><a href="/admin/inventoryfunctionhall">{{$countFun}}</a></strong></td>
+                                                <td><strong><a href="/admin/inventorypavillion">{{$countPav}}</a></strong></td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{--   END charts     --}}
 
         </div>
 

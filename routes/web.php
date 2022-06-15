@@ -34,6 +34,7 @@ Route::prefix('user')->name('user.')->group(function(){
     });
     Route::middleware(['auth:web','PreventBackHistory'])->group(function (){
         Route::get('/user-dashboard', [App\Http\Controllers\User\IndexController::class, 'dashboard'])->name('home');
+        Route::get('/logout',[\App\Http\Controllers\User\IndexController::class, 'userlogout'])->name('logout');
         Route::get('/historyreserve', [App\Http\Controllers\User\IndexController::class, 'historyreserve'])->name('historyreserve.list');
         Route::get('historyreserve/{id}', [App\Http\Controllers\User\IndexController::class, 'orderDetails']);
 
@@ -83,15 +84,17 @@ Route::post('/reservecottage', [App\Http\Controllers\User\ReserveCottageControll
 
 Route::get('/reservefunctionhall/{id}', [App\Http\Controllers\User\ReserveFunctionHallController::class, 'index'])->name('reservefunctionhall.index');;
 Route::post('/reservefunctionhall', [App\Http\Controllers\User\ReserveFunctionHallController::class, 'saveFunctionHallReserve'])->name('save.FunctionHallReserve');
-
+//pavillion
 Route::get('/reservepavillion/{id}', [App\Http\Controllers\User\ReservePavillionController::class, 'index'])->name('reservepavillion.index');;
 Route::post('/reservepavillion', [App\Http\Controllers\User\ReservePavillionController::class, 'savePavillion'])->name('save.Pavillion');
 
-//pavillion
+
+//ProblemRoutes
+        Route::post('/saveproblem',[\App\Http\Controllers\User\ProblemController::class,'saveProblem'])->name('save.problem');
 
 
 
-        Route::post('/logout',[\App\Http\Controllers\Auth\LoginController::class, 'userlogout'])->name('logout');
+
     });
 });
 
@@ -195,6 +198,11 @@ Route::get('/inventorypavillion', [App\Http\Controllers\Admin\InventoryCottagesC
         Route::get('/inventorytreehouse', [App\Http\Controllers\Admin\InventoryCottagesController::class, 'inventorytreehouse']);
         Route::get('/searchcottages',[App\Http\Controllers\Admin\InventoryCottagesController::class, 'searchcottages'] );
         Route::get('/inventorycottage/{id}', [App\Http\Controllers\Admin\InventoryCottagesController::class, 'deleteCottagesReserve']);
+
+
+        //problemroutes
+        Route::get('/listproblem',[\App\Http\Controllers\Admin\ProblemsController::class, 'listproblem'])->name('list.problem');
+
 
     });
 });

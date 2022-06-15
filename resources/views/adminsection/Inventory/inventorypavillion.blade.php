@@ -10,7 +10,7 @@
 
     <link rel="icon" href='/img/logotitle.png' type="image/icon type">
 
-    <link rel="stylesheet" href="/css/functionhall/list.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://your-site-or-cdn.com/fontawesome/v6.1.1/js/all.js" data-auto-replace-svg="nest"></script>
@@ -21,46 +21,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
+    {{--DataTable Jquery links--}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script href="https://code.jquery.com/jquery-3.5.1.js"></script>
+
     <style>
-           #cottages {
-                font-family: Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 100%;
-                        }
+        .main-panel{
+            margin-top: 50px;
+            width: 75%;
+            margin-left: 320px;
+            height:auto;
+            margin-bottom: 20px;
+            overflow-y:auto
+        }
+        .container{
+            background-color: rgba(255, 68, 0, 0.04);
 
-            #cottages td, #cottages th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-            #cottages th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: center;
-                background-color: #cc9900;
-                color: white;
-}
-
-#edit-btn{
-    color: white;
-    background-color:  #3366ff;
-    border-radius: 5px ;
-    padding: 7px;
-    margin:0;
-}
-#del-btn{
-    color: white;
-    background-color:   #ff3333;
-    border-radius: 5px ;
-    padding: 7px;
-    margin:0;
-}
-#show-btn{
-    color: white;
-    background-color:  #33ff99;
-    border-radius: 5px ;
-    padding: 7px;
-    margin:0;
-}
+        }
     </style>
 </head>
 <body>
@@ -71,24 +49,26 @@
             @include('flash-message')
         </div>
             <p>Inventory Pavillion Hall</p>
-       
+
 
 
     @if(Session::has('cottages_update'))
         <span>{{Session::get('cottages_update')}}</span>
         @endif
-    <table id="cottages">
+    <table id="dataTable">
+        <thead>
                 <tr>
                     <th>ID</th>
                     <th>User Name</th>
                     <th>Cottage Image</th>
                     <th>Cottage Name</th>
-                    <th>Reserve Date</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Status</th>
                     <th>Price</th>
                     <th>Action</th>
                 </tr>
-                
+         <tbody>
                 @foreach($reserves as $cottage)
                 <tr>
                     <td width="10%">#0000{{$cottage->id}}</td>
@@ -99,21 +79,30 @@
                     </td>
                     <td width="10%">{{$cottage->pavillionhall->name}}</td>
                     <td width="20%">{{$cottage->reserve_date}}</td>
+                    <td width="20%">{{$cottage->end_date}}</td>
                     <td width="10%">{{$cottage->status}}</td>
                     <td width="10%">Php. {{$cottage->pavillionhall->price}}</td>
-                    
+
                     <td width="10%">
                     <!-- <a href="#" id="show-btn">Show</a> -->
-                    <a href="/admin/editinventorypavillion/{{$cottage->id}}" id="edit-btn">Show</a>
+                    <a href="/admin/editinventorypavillion/{{$cottage->id}}" id="edit-btn" class="btn btn-primary">Show</a>
                     <!-- <a href="/inventorycottage/{{$cottage->id}}" id="del-btn">Delete</a> -->
                     </td>
-                    
+
                 </tr> @endforeach
+        </thead>
+         </tbody>
             </table>
- 
- 
 
     </div>
+    <script href="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable({
+                order:[[0,'desc']],
+            });
+        } );
+    </script>
 </body>
 </html>
 @endsection

@@ -13,7 +13,7 @@
         <title>Bulusan Part - Homepage</title>
         <!-- Favicon-->
     <link rel="stylesheet" href="{{ URL::asset('css/topbar.css') }}" />
-        
+
         <!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -93,7 +93,7 @@
 
         <!-- Header-->
         <!-- <img class="logo" src="{{ asset('img/banner.jpg') }}" alt="" width="1500px"> -->
- 
+
    <header class=" py-5" style="background-color: rgb(250, 135, 41); height: 100px" >
 
 
@@ -101,11 +101,11 @@
                     <h2 class="display-3 ">History</h2>
                 </div>
         </header>
-     
+
         <!-- Section-->
  <!-- @yield('content') -->
 
-   
+
 
 
   <section class="py-5" style="padding: 130px;">
@@ -130,17 +130,18 @@
 
                     <td>{{$history['cottage']['name']}}</td>
                     <!-- <td>{{$history['cottage']['description']}}</td> -->
-                    
+
                     <td>{{$history['amount']}}</td>
                     <td>{{$history['status']}}</td>
                     <!--  -->
                         <td><a style="text-decoration: underline; color: green;" href="{{ url('/user/historyreserve/'.$history['id']) }}">View Details</a></td>
-                 <!-- 
+                 <!--
                     <td>
                         <a href="#" id="show-btn">View Details</a>
                     </td> -->
                 </tr>
             @endforeach
+
             </tbody>
         </table>
         </section>
@@ -153,7 +154,7 @@
    <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
         </footer>
-     
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

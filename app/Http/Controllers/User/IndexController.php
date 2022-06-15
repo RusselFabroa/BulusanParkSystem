@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Models\cottages;
 use App\Models\treehouse;
@@ -13,20 +14,47 @@ use App\Models\ReserveTreehouse;
 use App\Models\ReserveFunctionHall;
 use App\Models\ReservePavillion;
 
+
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
     //
      public function dashboard(Request $request)
     {
+        $id = Auth::id();
+       /* $data = DB::table('reserves')
+            ->where('status','=','Accept')
+            ->where('user_id','=',$id)
+            ->get();*/
+
+        $data = DB::table('users')
+            ->join('reserves','reserves.user_id','=','users.id')
+            ->join('cottages', 'cottages.id','=','reserves.cottage_id')
+            ->where('users.id','=',$id)
+            ->where('reserves.status','=','Accept')
+            ->get();
+
+        $totalbill = DB::table('reserves')
+            ->where('status','=','Accept')
+            ->where('user_id','=',$id)
+            ->sum('amount');
+
+
+
         $cottages = cottages::where('availability','available')->limit(4)->get();
         $treehouse = treehouse::where('status','available')->limit(4)->get();
         $functionhall = functionhall::where('status','available')->limit(4)->get();
         $pavillionhall = pavillionhall::where('status','available')->limit(4)->get();
-       return view('usersection.user-dashboard', compact('cottages', 'treehouse', 'functionhall', 'pavillionhall'));
+       return view('usersection.user-dashboard', compact('cottages', 'treehouse', 'functionhall', 'pavillionhall', 'data','totalbill'));
 
     }
+    public function userlogout(){
+        Auth()->logout();
+        return redirect('/');
+    }
+
     public function cottage(){
     	    $cottages = cottages::where('availability','available')->get();
        return view('usersection.facilities.cottage', compact('cottages'));
@@ -61,7 +89,7 @@ class IndexController extends Controller
            // dd($cottages); die;
        return view('usersection.history.historyreservedetails', compact('cottages'));
     }
-    
+
      public function historyreservetreehouse(){
            $cottages = ReserveTreehouse::with('treehouse')->where('user_id',Auth::user()->id)->orderBy('id','Desc')->get()->toArray();
            // dd($cottages); die;
@@ -74,7 +102,7 @@ class IndexController extends Controller
            // dd($cottages); die;
        return view('usersection.history.historyreservedetailstreehouse', compact('cottages'));
     }
-    
+
 
      public function historyreservefunctionhall(){
            $cottages = ReserveFunctionHall::with('functionhall')->where('user_id',Auth::user()->id)->orderBy('id','Desc')->get()->toArray();

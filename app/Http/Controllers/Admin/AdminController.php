@@ -55,7 +55,20 @@ class AdminController extends Controller
         $totaladmin = DB::table('admins')-> count();
         $totalreservetreehouses = DB::table('reservetreehouses')->where('status', 'New')->count();
         $totalreservecottages = DB::table('reserves')->where('status', 'New')->count();
-        return view('adminsection.admin-dashboard', compact('totalcottages','totalverifiedusers','totaladmin','totalnotverified','totalreservecottages', 'totalreservetreehouses'));
+
+        //CountofAcceptedReservation
+        $countCot=DB::table('reserves')->where('status','=','New')->count();
+        $countTre=DB::table('reservetreehouses')->where('status','=','New')->count();
+        $countFun=DB::table('reservefunctionhall')->where('status','=','New')->count();
+        $countPav=DB::table('reservepavillion')->where('status','=','New')->count();
+
+        $countProb=DB::table('problems')->where('status','=','unresolved')->count();
+
+        return view('adminsection.admin-dashboard', compact('totalcottages','totalverifiedusers','totaladmin',
+            'totalnotverified','totalreservecottages', 'totalreservetreehouses',
+            'countCot','countTre','countFun','countPav',
+            'countProb'
+        ));
     }
 }
 

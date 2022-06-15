@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB; 
+use DB;
 use App\Models\cottages;
 use App\Models\User;
 use App\Models\Reserve;
@@ -14,7 +14,8 @@ use App\Models\ReservePavillion;
 
 class InventoryCottagesController extends Controller
 {
-    //
+
+
        public function inventorycottage(){
         $reserves = Reserve::with(['user', 'cottage'])->get();
        return view('adminsection.inventory.inventorycottage', compact('reserves'));
@@ -39,7 +40,7 @@ class InventoryCottagesController extends Controller
             'status'=>$request->status
         ]);
 
-        return back()->with('cottages_update','Status Updated Succesfully');
+        return back()->with('success','Status Updated Succesfully');
     }
 
  public function inventorytreehouse(){
@@ -62,7 +63,7 @@ class InventoryCottagesController extends Controller
             'status'=>$request->status
         ]);
 
-        return back()->with('cottages_update','Status Updated Succesfully');
+        return back()->with('success','Status Updated Succesfully');
     }
 
 
@@ -86,7 +87,7 @@ class InventoryCottagesController extends Controller
             'status'=>$request->status
         ]);
 
-        return back()->with('cottages_update','Status Updated Succesfully');
+        return back()->with('success','Status Updated Succesfully');
     }
 
 
@@ -111,7 +112,7 @@ class InventoryCottagesController extends Controller
             'status'=>$request->status
         ]);
 
-        return back()->with('cottages_update','Status Updated Succesfully');
+        return back()->with('success','Status Updated Succesfully');
     }
 
 
