@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,17 +53,13 @@ Route::get('/historyreservepavillionhall', [App\Http\Controllers\User\IndexContr
 //history
 Route::get('/historyreserve', [App\Http\Controllers\User\IndexController::class, 'historyreserve'])->name('historyreserve.list');
         Route::get('historyreserve/{id}', [App\Http\Controllers\User\IndexController::class, 'orderDetails']);
-
 Route::get('/historyreservetreehouse', [App\Http\Controllers\User\IndexController::class, 'historyreservetreehouse'])->name('historyreservetreehouse.list');
         Route::get('historyreservetreehouse/{id}', [App\Http\Controllers\User\IndexController::class, 'orderDetailsTreehouse']);
-
-
 Route::get('/historyreservefunctionhall', [App\Http\Controllers\User\IndexController::class, 'historyreservefunctionhall'])->name('historyreservefunctionhall.list');
         Route::get('historyreservefunctionhall/{id}', [App\Http\Controllers\User\IndexController::class, 'orderDetailsFunctionhall']);
-
 Route::get('/historyreservepavillionhall', [App\Http\Controllers\User\IndexController::class, 'historyreservepavillionhall'])->name('historyreservepavillionhall.list');
         Route::get('historyreservepavillionhall/{id}', [App\Http\Controllers\User\IndexController::class, 'orderDetailsPavillionhall']);
-
+Route::get('/historyreport',[\App\Http\Controllers\User\IndexController::class,'historyreport'])->name('historyreport.list');
 
 //listallfacilities
 Route::get('/cottage', [App\Http\Controllers\User\IndexController::class, 'cottage'])->name('cottage.list');
@@ -118,6 +115,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     });
 
     Route::middleware(['auth:admin','PreventBackHistory'])->group(function (){
+
         Route::get('/admindash', [\App\Http\Controllers\Admin\AdminController::class, 'countRecord'])->name('home');
         Route::get('/logout',[\App\Http\Controllers\Admin\AdminController::class, 'adminlogout'])->name('logout');
 
@@ -202,8 +200,9 @@ Route::get('/inventorypavillion', [App\Http\Controllers\Admin\InventoryCottagesC
 
         //problemroutes
         Route::get('/listproblem',[\App\Http\Controllers\Admin\ProblemsController::class, 'listproblem'])->name('list.problem');
-
-
+        Route::put('/updateproblem/{id}',[\App\Http\Controllers\Admin\ProblemsController::class, 'updateproblem'])->name('update.problem');
+        Route::get('/listresolved',[\App\Http\Controllers\Admin\ProblemsController::class, 'listresolved'])->name('list.resolved');
+        Route::get('/deleteproblem/{id}',[\App\Http\Controllers\Admin\ProblemsController::class, 'deleteproblem'])->name('delete.problem');
     });
 });
 

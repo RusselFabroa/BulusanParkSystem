@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class problem extends Model
 {
@@ -19,5 +20,7 @@ class problem extends Model
         'status',
         'note',
     ];
+
+
 
 }

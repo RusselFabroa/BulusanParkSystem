@@ -28,7 +28,7 @@
 
     <style>
         .main-panel{
-            margin-top: 50px;
+            margin-top: 100px;
             width: 75%;
             margin-left: 320px;
             height:auto;
@@ -74,7 +74,7 @@
                     <td width="10%">#0000{{$cottage->id}}</td>
                     <td width="20%">{{$cottage->user->name}}</td>
                      <td width="10%">
-                        <img src="{{asset('uploads/pavillionhalls/'.$cottage->pavillionhall->pavillionhall_image)}}" width="70px" height="70px" alt="Image">
+                        <img src="{{asset('uploads/pavillionhalls/'.$cottage->pavillionhall->pavillionhall_image)}}"class="rounded-circle" width="40px" height="40px" alt="Image">
                         <!-- pagtawag ng image papunta-->
                     </td>
                     <td width="10%">{{$cottage->pavillionhall->name}}</td>

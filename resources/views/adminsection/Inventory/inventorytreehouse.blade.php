@@ -27,7 +27,7 @@
 
     <style>
         .main-panel{
-            margin-top: 50px;
+            margin-top: 100px;
             width: 75%;
             margin-left: 320px;
             height:auto;

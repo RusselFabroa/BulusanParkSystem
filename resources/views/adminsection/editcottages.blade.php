@@ -18,7 +18,13 @@
 
 </head>
 <body>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Facilities</a></li>
+        <li class="breadcrumb-item"><a>Cottages</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+</nav>
 <h3>Update Cottages: <u>{{$cottages->name}}</u> <a id="back-btn" href='/admin/listcottages'>Back to List</a> </h3>
 <form class="form-style-9" action="{{url('/admin/updatecottages/'.$cottages->id)}}" method="post" enctype="multipart/form-data">
     @csrf

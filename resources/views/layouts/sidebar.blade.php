@@ -1,6 +1,4 @@
-@php
-use App\Http\Controllers\LayoutController as layoutcount;
-@endphp
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +57,9 @@ use App\Http\Controllers\LayoutController as layoutcount;
                             <a href="/admin/salesPavillionhall" class="sub-item">Pavillion Hall</a>
                         </div>
                     </div>
-                    <div class="item" id="item5"><a href="{{route('admin.list.problem')}}"><i class="fa fa-exclamation-triangle"></i>Reports</a></div>
+                    <div class="item" id="item5"><a href="{{route('admin.list.problem')}}"><i class="fa fa-exclamation-triangle"></i>Reports
+                            <span class="badge bg-danger">{{$countproblem}}</span>
+                        </a></div>
                     <div class="item" id="item4">
                         <a class="sub-btn"><i class="fa fa-address-book"></i>Users Management<i class="fas fa-angle-right dropdown"></i></a>
 
@@ -100,7 +100,7 @@ use App\Http\Controllers\LayoutController as layoutcount;
 {{--        </li>--}}
 {{--    </ul>--}}
 {{--</div>--}}
-<div class="header-title">
+<div class="header-title" style="position: fixed; width: 80%; top: 0px; z-index: 2;">
         <div class="m-8">
             <nav class="shadow p-1 navbar navbar-expand-sm navbar-light bg-light">
                 <div class="container-fluid">

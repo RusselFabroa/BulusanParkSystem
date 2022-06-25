@@ -43,7 +43,7 @@ class ReserveCottageController extends Controller
             $reserve->status = "New";
             $reserve->Save();
 
-        return back()->with('cottages_update','Reserve Save Succesfully');
+        return back()->with('success','Reserve Save Succesfully');
 
         }
 

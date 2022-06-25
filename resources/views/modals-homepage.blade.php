@@ -187,11 +187,6 @@
                 </nav>
             </div>
             <div class="modal-body" id="aboutusbody" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="0">
-
-
-
-
-
                 <div id="about" class="container-fluid bg-grey">
                     <h2 class="text-center">About Calapan Nature Park</h2>
                     <br>
@@ -199,7 +194,6 @@
                         <div class="col-sm-5">
                             <img src="{{ asset('/img/logotitle.png') }}"
                                  class="img-fluid" alt="Sample image">
-
                         </div>
                         <div class="col-sm-7 slideanim">
                             <div class="row">
@@ -209,12 +203,10 @@
                                         On the 15th Foundation Anniversary of Calapan it was changed to Calapan Recreational and Zoological Park lead by Mayor Doy Leachon last March 18, 2007. The same day the mini zoo was open, were different animals can be seen such as tiger, donkey, ostrich, monkey, deer, wild cats and different kinds of birds.<br>
                                         Extreme sports enthusiast will also enjoy, we have zipline and wall climbing, play around for kids and obstacles for team building.
                                 </p>
-
                             </div>
                         </div>
                     </div>
              </div>
-
                 <div id="socmed" class="container-fluid bg-info" style="padding-top:10px; margin: 10px">
                     <h2 class="text-center">Social Media</h2><br>
                         <div class="col-sm-7 ">

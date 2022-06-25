@@ -134,7 +134,12 @@
     </style>
     <br>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <button type="button" class="btn btn-primary" data-bs-target="#bookmodal" data-bs-toggle="modal" data-bs-dismiss="modal">BOOK NOW!</button>
+        <button type="button" class="btn btn-primary position-relative" data-bs-target="#bookmodal" data-bs-toggle="modal" data-bs-dismiss="modal">BOOK NOW!
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{$countreserved}}
+            <span class="visually-hidden">unread messages</span>
+            </span>
+        </button>
     </div>
 
 
@@ -326,7 +331,7 @@
                                                                    <label style="margin-left: 5px; margin-bottom: 0px;" for="child">Children</label>
                                                                    <input type="number" name="child" class="form-control" placeholder="14 years old and below">
                                                                </div>
-                                                               <h5 style="font-size: 15px; color: #fd6060">Reminder: Senior Citizen and Children(3 years old and below) are FREE!</h5>
+                                                               <h5 style="font-size: 15px; color: #fd6060;">Reminder: Senior Citizen and Children(3 years old and below) are FREE!</h5>
                                                            </div>
                                                            <div class="row">
                                                                <div class="col">

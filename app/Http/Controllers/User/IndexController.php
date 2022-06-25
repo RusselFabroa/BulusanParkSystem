@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\cottages;
 use App\Models\treehouse;
@@ -42,12 +43,24 @@ class IndexController extends Controller
             ->sum('amount');
 
 
+        $countreserved = DB::table('users')
+            ->join('reserves','users.id','=','reserves.user_id')
+            ->join('reservetreehouses','reserves.user_id','=','reservetreehouses.user_id')
+            ->join('reservefunctionhall','reservetreehouses.user_id','=','reservefunctionhall.user_id')
+            ->join('reservepavillion','reservefunctionhall.user_id','=','reservepavillion.user_id')
+            ->where('users.id','=',Auth::User()->id)
+            ->where('reserves.status','=','Accept')
+            ->count();
+
+
+
+
 
         $cottages = cottages::where('availability','available')->limit(4)->get();
         $treehouse = treehouse::where('status','available')->limit(4)->get();
         $functionhall = functionhall::where('status','available')->limit(4)->get();
         $pavillionhall = pavillionhall::where('status','available')->limit(4)->get();
-       return view('usersection.user-dashboard', compact('cottages', 'treehouse', 'functionhall', 'pavillionhall', 'data','totalbill'));
+       return view('usersection.user-dashboard', compact('cottages', 'treehouse', 'functionhall', 'pavillionhall', 'data','totalbill','countreserved' ));
 
     }
     public function userlogout(){
@@ -130,4 +143,11 @@ class IndexController extends Controller
        return view('usersection.history.historyreservedetailspavillionhall', compact('cottages'));
     }
 
+    public function historyreport(){
+
+        $problems = DB::table('problems')->latest()->get();
+//            ->where('status','=','unresolved')
+
+         return view('usersection.history.historyreport', compact('problems'));
+    }
 }

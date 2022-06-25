@@ -64,18 +64,21 @@
     </style>
 </head>
 <body>
-
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Facilities</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Cottages</li>
+    </ol>
+</nav>
+@include('flash-message')
     <div class="container">
         <div class="head">
             <h3>Cottage<a href="/admin/addcottages">Add</a> </h3>
-            @include('flash-message')
+
         </div>
 
 
-    @if(Session::has('cottages_update'))
-        <span>{{Session::get('cottages_update')}}</span>
-        @endif
+
     <table id="cottages">
                 <tr>
                     <th>ID</th>

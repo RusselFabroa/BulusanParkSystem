@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Bulusan Park - Homepage</title>
+        <title>Bulusan Park - User</title>
+        <link rel="icon" href="{{ asset('/img/logotitle.png') }}"  type="image/icon type">
         <!-- Favicon-->
     <link rel="stylesheet" href="{{ URL::asset('css/topbar.css') }}" />
 
@@ -25,7 +26,7 @@
         <!-- JQUERY -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
+        @yield('style')
     </head>
     <body>
         <!-- Navigation-->
@@ -50,6 +51,8 @@
                                 <li><a class="dropdown-item" href="/user/historyreservefunctionhall">Function hall</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="/user/historyreservepavillionhall">Pavilion hall</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="/user/historyreport">Report</a></li>
                             </ul>
                         </li>
                         <!-- <li class="nav-item"><a class="nav-link" href="/historyreserve">History</a></li> -->
@@ -131,7 +134,7 @@
                     </div>
                     <div class="modal-body">
                         {{--CARDS--}}
-                        @include('flash-message')
+
                             <div class="container-md">
                                 <form style="margin-left: 0" class="form-container" method="post" action="{{route('user.save.problem')}}"  enctype="multipart/form-data">
                                     @csrf
@@ -159,7 +162,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <button style="width: 100%" class="btn btn-primary" type="submit">Report</button>
+                                    <button style="width: 100%" class="btn btn-warning" type="submit">Report</button>
 
                                 </form>
                             </div>

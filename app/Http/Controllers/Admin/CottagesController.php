@@ -136,7 +136,7 @@ public function storeCottages($id, Request $request){
     }
     $cottages->update();
 
-    return back()->with('info','Cottage Updated Succesfully');
+    return back()->with('success','Cottage Updated Succesfully');
 
  }
 
