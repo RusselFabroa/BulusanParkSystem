@@ -45,8 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `verification_code`, `is_verified`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'jayvee', 'jayveeolla2000@gmail.com', '2022-06-14 12:02:37', '$2y$10$zzaTgpuBNBy571yPTT6gJeXZqq5./NRYlj15aFpPxeunE/zUclZXu', NULL, 0, NULL, NULL, NULL),
-(2, 'Russel F', 'fabroa.russel246@gmail.com', NULL, '$2y$10$nPcIsi10rHn21CUHftIoCOtPRU8AfkeYI5KPWgQEcSoApb9/F2WBe', NULL, 1, NULL, NULL, NULL);
+(1, 'Russel F', 'fabroa.russel246@gmail.com', NULL, '$2y$10$nPcIsi10rHn21CUHftIoCOtPRU8AfkeYI5KPWgQEcSoApb9/F2WBe', NULL, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
