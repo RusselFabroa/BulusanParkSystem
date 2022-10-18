@@ -22,7 +22,7 @@ class TreeHouseController extends Controller
             'price' => 'required|integer',
             'description' => 'required',
             'status' => 'required',
-            'treehouse_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'treehouse_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4000',
         ]);
 
         //pag-save ng image sa local storage
@@ -44,7 +44,9 @@ class TreeHouseController extends Controller
    }
 
    public function listtreehouse(Request $request){
-       $treehouses = DB::table('treehouse')->get();
+       $treehouses = DB::table('treehouse')
+           ->orderBy('status')
+           ->get();
        return view('adminsection.treehouse-list', compact('treehouses'));
    }
    public function deletetreehouse($id){
@@ -63,7 +65,7 @@ public function updatetreehouse(Request $request, $id){
         'price' => 'required|integer',
         'description' => 'required',
         'status' => 'required',
-        'treehouse_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'treehouse_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4000',
     ]);
 
     $treehouse = treehouse::find($id);
@@ -89,5 +91,27 @@ public function updatetreehouse(Request $request, $id){
     $treehouse->update();
  return back()->with('success','TreeHouse Updated Successfully!');
 }
+
+    public function edittreehousestatus($id)
+    {
+        $treehouse= treehouse::find($id);
+        return view('adminsection.treehousestatus-edit', compact('treehouse'));
+    }
+
+    public function updatetreehousestatus(Request $request, $id)
+    {
+        $request->validate([
+
+            'status' => 'required',
+
+        ]);
+
+        $treehouse = treehouse::find($id);
+        $treehouse->status = $request->input('status');
+
+
+        $treehouse->update();
+        return back()->with('success', 'TreeHouse Updated Successfully!');
+    }
 
 }

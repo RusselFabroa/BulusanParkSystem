@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Animals;
 use App\Models\cottages;
+use App\Models\events;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -23,7 +24,7 @@ class CottagesController extends Controller
            'price' => 'required|integer',
            'description' => 'required',
            'availability' => 'required',
-           'cottage_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+           'cottage_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
        ]);
 
     //pag-save ng image sa local storage
@@ -48,7 +49,9 @@ class CottagesController extends Controller
 
    public function cottagesList(){
 
-       $cottages = DB::table('cottages')->get();
+       $cottages = DB::table('cottages')
+           ->orderBy('availability')
+           ->get();
        return view('adminsection.listcottages', compact('cottages'));
    }
 
@@ -60,6 +63,7 @@ class CottagesController extends Controller
 
     public function editCottages($id){
             $cottages = DB::table('cottages')->where('id', $id)->first();
+
             return view('adminsection.editcottages', compact('cottages'));
     }
 
@@ -69,7 +73,7 @@ class CottagesController extends Controller
             'price' => 'required|integer',
             'description' => 'required',
             'availability' => 'required',
-            'cottage_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cottage_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
         ]);
 
         $cottage = cottages::find($id);
@@ -118,7 +122,7 @@ public function storeCottages($id, Request $request){
         'price' => 'required|integer',
         'description' => 'required',
         'availability' => 'required',
-        'cottage_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'cottage_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
     ]);
     $cottages = new cottages;
     $cottages->name =$request->input('name');
@@ -146,5 +150,21 @@ public function searchcottages(Request $request){
     return view('adminsection.listcottages',['posts'=>$posts]);
 }
 
+    public function editCottagesstatus($id, Request $request){
+        $cottages = DB::table('cottages')->where('id', $id)->first();
 
+        return view('adminsection.editcottagesstatus', compact('cottages'));
+    }
+
+    public function updatecottagesstatus($id, Request $request){
+        $request->validate([
+            'availability' => 'required',
+        ]);
+
+        $cottage = cottages::find($id);
+        $cottage->availability = $request->input('availability');
+
+        $cottage->update();
+        return back()->with('success','Data Updated Successfully!');
+    }
 }

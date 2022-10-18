@@ -1,5 +1,8 @@
-@extends('layouts.sidebar')
+@extends('layouts.admin.master')
 
+@section('facilities')
+    class="active"
+    @endsection
 @section('content')
     <!DOCTYPE html>
 <html lang="en">
@@ -18,59 +21,71 @@
 
 </head>
 <body>
-
-<h3>Update Pavillion Hall: <u>{{$pavillionhall->name}}</u> <a id="back-btn" href='/admin/pavillionhall-list'>Back to List</a> </h3>
-<form class="form-style-9" action="{{url('/admin/pavillionhall-update/'.$pavillionhall->id)}}" method="post" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-    @include('flash-message')
-    <img style= "margin:0 100px 20px 250px"; src="{{ asset('uploads/pavillionhalls/'.$pavillionhall->pavillionhall_image)}}" width="300px" height="200px" alt="Image">
-
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{$pavillionhall->name}}">
-            <span style="font-size: 15px" class="text-danger">@error('name'){{$message}}@enderror</span>
-        </div>
-        <div class="col-sm-5">
-            <label for="image"  class="form-label">Image</label>
-            <input class="form-control" name="pavillionhall_image" id="image" type="file" />
-            <span style="font-size: 15px" class="text-danger">@error('pavillionhall_image'){{$message}}@enderror</span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <label for="price" class="form-label">Price</label>
-            <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="{{$pavillionhall->price}}">
-            <span style="font-size: 15px" class="text-danger">@error('price'){{$message}}@enderror</span>
-        </div>
-        <div class="col-sm-5">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-select" name="status" aria-label="status">
-                <option selected value="available">Available</option>
-                <option value="notavailable">Not Available</option>
-            </select>
-            <span style="font-size: 15px" class="text-danger">@error('status'){{$message}}@enderror</span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-
-        <div class="col-sm-10">
-            <label for="description" class="form-label">Description</label>
-            <textarea type="text" name="description" class="form-control" id="description" placeholder="Description" >{{$pavillionhall->description}} </textarea>
-            <span style="font-size: 15px" class="text-danger">@error('description'){{$message}}@enderror</span>
-        </div>
+<div class="card" id="card-content">
+    <div class="card-header">
+        <h3>Update Pavillion Hall: <u>{{$pavillionhall->name}}</u> <a id="back-btn" href='/admin/pavillionhall-list'>Back to List</a> </h3>
 
     </div>
-    <br>
-    <button type="submit" class="col-sm-10 btn btn-primary">Save</button>
+    <div class="card-body">
+        <form class="form-style-9" action="{{url('/admin/pavillionhall-update/'.$pavillionhall->id)}}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            @include('flash-message')
+            <img style= "margin:0 100px 20px 250px"; src="{{ asset('uploads/pavillionhalls/'.$pavillionhall->pavillionhall_image)}}" width="300px" height="200px" alt="Image">
+
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{$pavillionhall->name}}">
+                    <span style="font-size: 15px" class="text-danger">@error('name'){{$message}}@enderror</span>
+                </div>
+                <div class="col-sm-5">
+                    <label for="image"  class="form-label">Image</label>
+                    <input class="form-control" name="pavillionhall_image" id="image" type="file" />
+                    <span style="font-size: 15px" class="text-danger">@error('pavillionhall_image'){{$message}}@enderror</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="{{$pavillionhall->price}}">
+                    <span style="font-size: 15px" class="text-danger">@error('price'){{$message}}@enderror</span>
+                </div>
+                <div class="col-sm-5">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" name="status" aria-label="status">
+                        <option selected value="available">Available</option>
+                        <option value="notavailable">Not Available</option>
+                    </select>
+                    <span style="font-size: 15px" class="text-danger">@error('status'){{$message}}@enderror</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-sm-10">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea type="text" name="description" class="form-control" id="description" placeholder="Description" >{{$pavillionhall->description}} </textarea>
+                    <span style="font-size: 15px" class="text-danger">@error('description'){{$message}}@enderror</span>
+                </div>
+
+            </div>
+            <br>
+            <button type="submit" class="col-sm-10 btn btn-primary">Save</button>
 
 
 
 
-</form>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
 </body>
 </html>
 

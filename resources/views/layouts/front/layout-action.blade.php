@@ -26,7 +26,16 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <link  href="{{asset('assets/frontend/css/jquery.rateyo.min.css')}}" rel="stylesheet">
     @yield('style')
+    <style>
+        body{
+            background-image: url('/img/bg1.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -71,6 +80,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a type="button" style="color: #9f5b5b" class="nav-link active" aria-current="page" data-bs-target="#problemmodal" data-bs-toggle="modal" data-bs-dismiss="modal">Report Problem</a></li>
+                <li class="nav-item"><a type="button" style="color: #2d2c2c" class="nav-link active" aria-current="page" data-bs-target="#reviewmodal" data-bs-toggle="modal" data-bs-dismiss="modal">Rate Us</a></li>
             </ul>
             @guest
                 @if (Route::has('login'))
@@ -86,12 +96,19 @@
                 @endif
             @else
             @endguest
-            <button class="btn btn-outline-dark" type="submit">
-                <!-- <i class="bi-cart-fill me-1"></i> -->
-                <a href="{{route('user.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>
-                <form action="{{route('user.logout')}}" id="logout-form" method="get"> </form>
-                <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-            </button>
+            <div class="dropdown">
+                <a  style="width: max-content;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{$authname}}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Manage Account</a></li>
+                    <li>
+                        <a href="{{route('user.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>
+                        <form action="{{route('user.logout')}}" id="logout-form" method="get"> </form>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
@@ -108,11 +125,7 @@
 
 
 <!-- Header-->
-<header class=" py-5" style="height: 50px;background-color: rgb(250, 135, 41);" >
-    <div class="text-center text-light" style="position: relative;top: -2.3rem">
-        <h2 class="display-3" style="font-size: 50px;">Reservation</h2>
-    </div>
-</header>
+
 
 <!-- Section-->
 @yield('content')
@@ -128,7 +141,6 @@
 <script src="{{url ('js/scripts.js') }}"></script>
 
 
-{{--ANIMALS MODALS--}}
 <div class="modal fade" id="problemmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -160,6 +172,13 @@
                         </div>
                         <div class="form-group row">
                             <div class="col">
+                                <label for="image" class="form-label">Image(Optional)</label>
+                                <input class="form-control" type="file" id="image" name="image">
+                                <span style="font-size: 15px" class="text-danger">@error('image'){{$message}}@enderror</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
 
                                 <textarea class="form-control" name="note" id="note" type="text" placeholder="Describe or Specify the Problem"></textarea>
                                 <span style="font-size: 15px" class="text-danger">@error('note'){{$message}}@enderror</span>
@@ -177,8 +196,35 @@
         </div>
     </div>
 </div>
+
 {{--END MODALS--}}
+{{--END MODALS--}}
+<script src="{{asset('assets/frontend/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('assets/frontend/js/ jquery-3.6.1.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
+<script src="{{asset('assets/frontend/js/jquery.rateyo.min.js')}}"></script>
+<script>
+    $('.facility-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        dots:false,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:4
+            }
+        }
+    })
+</script>
+@yield('script')
 </body>
 </html>

@@ -17,12 +17,21 @@ class ReserveFunctionHallController extends Controller
     {
         // $cottages = cottages::where('id', $id)->first();
             $functionhalls = DB::table('functionhalls')->where('id', $id)->first();
-       return view('usersection.reservefunctionhalls', compact('functionhalls'));
+        $user_id = Auth::id();
+        $user = DB::table('users')->where('id',$user_id)->first();
+       return view('usersection.reservefunctionhalls', compact('functionhalls','user'));
 
     }
 
        public function saveFunctionHallReserve(Request $request){
 
+           $request->validate([
+               'date'=> 'required|after:today',
+               'enddate'=>'required|after:date',
+               'mobilenumber'=>'required|digits:11',
+               'note'=>'required',
+               'address'=>'required'
+           ]);
             $reserve = new ReserveFunctionHall;
             $reserve->user_id = Auth::User()->id;
            $reserve->amount = $request->price;

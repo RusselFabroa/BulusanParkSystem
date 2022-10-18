@@ -1,4 +1,7 @@
-@extends('layouts.sidebar')
+@extends('layouts.admin.master')
+@section('sliders')
+    class="active"
+    @endsection
 @section('content')
     <!DOCTYPE html>
 <html lang="en">
@@ -14,21 +17,26 @@
     <link rel="stylesheet" href="/css/other/slider-edit.css" type="text/css">
 </head>
 <body>
-@if(Session::has('treehouse_add'))
-    <div class="alert alert-succes">
-        {{Session::get('treehouse_add')}}
-    </div>
+<div class="card" id="card-content">
+    <div class="card-header">
 
-@endif
-
-<form class="form-container" action="{{url('/admin/slider-update/'.$slider->id)}}" method="post" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-    <div class="form-container-head">
-        <h3>Edit Slider <a href='/admin/slider-list'>Back to List</a> </h3>
     </div>
-@include('flash-message')
-    <div class="form-form">
+    <div class="card-body">
+        @if(Session::has('treehouse_add'))
+            <div class="alert alert-succes">
+                {{Session::get('treehouse_add')}}
+            </div>
+
+        @endif
+
+        <form class="form-container" action="{{url('/admin/slider-update/'.$slider->id)}}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="form-container-head">
+                <h3>Edit Slider <a href='/admin/slider-list'>Back to List</a> </h3>
+            </div>
+            @include('flash-message')
+            <div class="form-form">
 
 
                 <p>
@@ -84,7 +92,10 @@
             </div>
             <br>
 
-</form>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
 

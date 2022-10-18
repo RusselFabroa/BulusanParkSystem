@@ -1,4 +1,7 @@
-@extends('layouts.sidebar')
+@extends('layouts.admin.master')
+@section('inventory')
+    class="active"
+    @endsection
     @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -27,14 +30,7 @@
     <script href="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <style>
-        .main-panel{
-            margin-top: 100px;
-            width: 75%;
-            margin-left: 320px;
-            height:auto;
-            margin-bottom: 20px;
-            overflow-y:auto
-        }
+
         .container{
             background-color: rgba(255, 68, 0, 0.04);
 
@@ -44,21 +40,50 @@
 
 </head>
 <body>
+<div class="card" id="card-content">
+    <div class="card-header">
+        <h2>Reservation
+            <div class="dropdown show pull-right" style="float: right;">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Function Hall Reservation
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/admin/inventorycottage">Cottage</a>
+                    <a class="dropdown-item" href="/admin/inventorytreehouse">Tree House</a>
+                    <a class="dropdown-item" href="/admin/inventorypavillion">Pavillion Hall</a>
+                    <a class="dropdown-item" href="#">Other</a>
+
+                </div>
+            </div>
+        </h2>
+        <br>
+        <ul class="nav nav-tabs" style="">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" >New</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/inventoryfunctionhall-accepted">Accepted</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/inventoryfunctionhall-paid">Paid</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="head">
+                @include('flash-message')
+            </div>
 
 
-    <div class="container">
-        <div class="head">
-            @include('flash-message')
-        </div>
-            <p>Inventory Function Hall</p>
 
 
-
-    @if(Session::has('cottages_update'))
-        <span>{{Session::get('cottages_update')}}</span>
-        @endif
-  <table id="dataTable">
-      <thead>
+            @if(Session::has('cottages_update'))
+                <span>{{Session::get('cottages_update')}}</span>
+            @endif
+            <table id="dataTable">
+                <thead>
                 <tr>
                     <th>ID</th>
                     <th>User Name</th>
@@ -70,40 +95,46 @@
                     <th>Price</th>
                     <th>Action</th>
                 </tr>
-      </thead>
-      <tbody>
+                </thead>
+                <tbody>
                 @foreach($reserves as $cottage)
-                <tr>
-                    <td width="10%">#0000{{$cottage->id}}</td>
-                    <td width="20%">{{$cottage->user->name}}</td>
-                     <td width="10%">
-                        <img src="{{asset('uploads/functionhalls/'.$cottage->functionhall->functionhall_image)}}" class="rounded-circle" width="40px" height="40px" alt="Image">
-                        <!-- pagtawag ng image papunta-->
-                    </td>
-                    <td width="10%">{{$cottage->functionhall->name}}</td>
-                    <td width="20%">{{$cottage->reserve_date}}
-                    <td width="20%">{{$cottage->end_date}}</td>
-                    <td width="10%">{{$cottage->status}}</td>
-                    <td width="10%">Php. {{$cottage->functionhall->price}}</td>
+                    <tr>
+                        <td width="10%">#0000{{$cottage->id}}</td>
+                        <td width="20%">{{$cottage->user->name}}</td>
+                        <td width="10%">
+                            <img src="{{asset('uploads/functionhalls/'.$cottage->functionhall->functionhall_image)}}" class="rounded-circle" width="40px" height="40px" alt="Image">
+                            <!-- pagtawag ng image papunta-->
+                        </td>
+                        <td width="10%">{{$cottage->functionhall->name}}</td>
+                        <td width="20%">{{$cottage->reserve_date}}
+                        <td width="20%">{{$cottage->end_date}}</td>
+                        <td width="10%">{{$cottage->status}}</td>
+                        <td width="10%">Php. {{$cottage->functionhall->price}}</td>
 
-                    <td width="10%">
-                    <!-- <a href="#" id="show-btn">Show</a> -->
-                    <a href="/admin/editinventoryfunctionhall/{{$cottage->id}}" id="edit-btn" class="btn btn-primary">Show</a>
-                    <!-- <a href="/inventorycottage/{{$cottage->id}}" id="del-btn">Delete</a> -->
-                    </td>
+                        <td width="10%">
+                            <!-- <a href="#" id="show-btn">Show</a> -->
+                            <a href="/admin/editinventoryfunctionhall/{{$cottage->id}}" id="edit-btn" class="btn btn-primary">Show</a>
+                            <!-- <a href="/inventorycottage/{{$cottage->id}}" id="del-btn">Delete</a> -->
+                        </td>
 
-                </tr> @endforeach
-      </tbody>
+                    </tr> @endforeach
+                </tbody>
             </table>
+        </div>
+        <script href="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('#dataTable').DataTable({
+                    order:[[0,'desc']],
+                });
+            } );
+        </script>
     </div>
-    <script href="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#dataTable').DataTable({
-                order:[[0,'desc']],
-            });
-        } );
-    </script>
+</div>
+
+
+
+
 </body>
 </html>
 @endsection

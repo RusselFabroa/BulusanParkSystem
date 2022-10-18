@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Animals;
+use App\Models\animals_species;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -13,25 +14,41 @@ class AnimalController extends Controller
 {
     public function listanimals(Request $request){
 //        $adminname = Auth::guard('admin')->name();
+
         $animals= DB::table('animals')->get();
         return view('adminsection.animals-list', compact('animals'));
     }
 
     public function addanimals(){
-        return view ('adminsection.animals-add');
+        $father = DB::table('animals')->where('gender','male')
+            ->orderBy('species')
+            ->get();
+        $mother = Animals::where('gender','female')
+            ->orderBy('name')
+            ->get();
+        $species = animals_species::all();
+
+        return view ('adminsection.animals-add', compact('father','mother','species'));
     }
 
     public function saveanimals(Request $request){
         //pag-save ng image sa local storage
+
         $file = $request->file('animals_image');
         $extension=$file->getClientOriginalExtension();
         $filename = time().'.'.$extension;
         $file->move('uploads/animals/',$filename);
 
+        $father = $request->input('father');
+        $mother = $request->input('mother');
+
         DB::table('animals')->insert([
             'name'=>$request->name,
             'description'=>$request->description,
-            'animals_image'=>$filename
+            'animals_image'=>$filename,
+            'gender' => $request->gender,
+            'species' =>$request->species,
+            'parents'=> "$father & $mother"
 
         ]);
 
@@ -42,7 +59,14 @@ class AnimalController extends Controller
         $animals = DB::table('animals')
             ->where('id', '=', $id)
             ->first();
-        return view ('adminsection.animals-edit', compact('animals'));
+        $father = DB::table('animals')->where('gender','male')
+            ->orderBy('species')
+            ->get();
+        $mother = Animals::where('gender','female')
+            ->orderBy('name')
+            ->get();
+        $species = animals_species::all();
+        return view ('adminsection.animals-edit', compact('animals','father','mother','species'));
     }
 
 

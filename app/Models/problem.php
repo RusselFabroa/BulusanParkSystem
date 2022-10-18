@@ -17,6 +17,8 @@ class problem extends Model
         'users_name',
         'users_number',
         'problem',
+        'image',
+        'reply',
         'status',
         'note',
     ];

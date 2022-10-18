@@ -1,5 +1,8 @@
-@extends('layouts.sidebar')
+@extends('layouts.admin.master')
 
+@section('facilities')
+    class="active"
+    @endsection
 @section('content')
 <!DOCTYPE html>
 <html lang="en">

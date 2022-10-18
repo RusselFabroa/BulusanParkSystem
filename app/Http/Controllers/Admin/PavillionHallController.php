@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\File;
 class PavillionHallController extends Controller
 {
     public function listpavillionhall(){
-        $pavillionhalls = DB::table('pavillionhalls')->get();
+        $pavillionhalls = DB::table('pavillionhalls')
+            ->orderBy('status')
+            ->get();
 
 
         return view('adminsection.pavillionhall-list', compact('pavillionhalls'));
@@ -95,4 +97,28 @@ class PavillionHallController extends Controller
         DB::table('pavillionhalls')->where('id', $id)->delete();
         return back()->with('success','Data Deleted Succesfully');
     }
+
+
+
+    public function updatepavillionhallstatus($id, Request $request)
+    {
+        $request->validate([
+            'status' => 'required',
+
+        ]);
+
+        $pavillionhall = pavillionhall::find($id);
+        $pavillionhall->status = $request->input('status');
+        $pavillionhall->update();
+        return back()->with('success','Pavillion Hall Updated Successfully!');
+
+    }
+    public function editpavillionhallstatus($id)
+    {
+        $pavillionhall = DB::table('pavillionhalls')
+            ->where('id', '=', $id)
+            ->first();
+        return view('adminsection.pavillionhallstatus-edit', compact('pavillionhall'));
+    }
+
 }

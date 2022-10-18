@@ -112,7 +112,7 @@
 <h4>Cottage</h4>
 <br>
             <table class="table table-striped table-bordered">
-
+<thead>
             <tr>
                 <th>RESERVED ID</th>
 

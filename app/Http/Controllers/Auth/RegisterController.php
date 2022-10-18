@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use App\Models\VerifyUser;
 
 class RegisterController extends Controller
 {
@@ -48,7 +49,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -63,45 +64,76 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\Models\User
      */
-   public function register(Request $request){
 
-       //validate input
-       $request->validate([
-           'name' => 'required', 'string', 'max:255',
-           'email' => 'required|email|unique:users,email',
-           'password' => 'required|min:8|max:30',
-           'cpassword' => 'required|min:8|max:30|same:password'
-       ]);
-       $user = new User();
-       $user->name = $request->name;
-       $user->email = $request->email;
-       $user->password = Hash::make($request->password);
-       $user->verification_code = sha1(time());
-       $user->save();
 
-       if($user != null){
-           MailController::sendSignupEmail($user->name, $user->email , $user->verification_code);
-           return redirect()->back()->with('success','Your account has been created. Please check your email for verification link. ');
-       }
+    public function register(Request $request)
+    {
 
-       return redirect()->back()->with('danger','Something went wrong!');
-
-   }
-
-   public function verifyUser(Request $request){
-    $verification_code = \Illuminate\Support\Facades\Request::get('code');
-    $user = User::where(['verification_code' => $verification_code])->first();
-    if($user != null){
-        $user->is_verified = 1;
+        //validate input
+        $request->validate([
+            'name' => 'required', 'string', 'max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|max:30',
+            'cpassword' => 'required|min:8|max:30|same:password'
+        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->verification_code = sha1(time());
         $user->save();
-        return redirect()->route('logincustomer')->with('success', 'Your account is verified. Please login!');
+        $last_id = $user->id;
+
+        $token = $last_id . hash('sha256', \Str::random(120));
+        $verifyURL = route('user.verify', ['token' => $token, 'service' => 'Email_verification']);
+
+        VerifyUser::create([
+            'user_id' => $last_id,
+            'token' => $token,
+        ]);
+
+        if ($user != null) {
+            MailController::sendSignupEmail($user->name, $user->email, $user->verification_code);
+            return redirect()->back()->with('success', 'Your account has been created. Please check your email for verification link. ');
+        }
+
+        return redirect()->back()->with('danger', 'Something went wrong!');
+
     }
 
-    return redirect()->route('logincustomer')->with('error','Invalid verification code!');
-   }
+    public function verifyUser(Request $request)
+    {
+        $verification_code = \Illuminate\Support\Facades\Request::get('code');
+        $user = User::where(['verification_code' => $verification_code])->first();
+        if ($user != null) {
+            $user->is_verified = 1;
+            $user->save();
+            return redirect()->route('user.login')->with('success', 'Your account is verified. Please login!');
+        }
+
+        return redirect()->route('logincustomer')->with('error', 'Invalid verification code!');
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Admin Controller Function/
     public function registerAdmins(Request $request){

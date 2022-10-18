@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Review;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\cottages;
 use App\Models\treehouse;
@@ -25,44 +27,155 @@ class IndexController extends Controller
      public function dashboard(Request $request)
     {
         $id = Auth::id();
-       /* $data = DB::table('reserves')
-            ->where('status','=','Accept')
-            ->where('user_id','=',$id)
-            ->get();*/
-
-        $data = DB::table('users')
+        $auth_info= DB::table('users')
+            ->where('id','=', $id)
+            ->get();
+        $currentTime = Carbon::now();
+        $user_booked = DB::table('books')->where('user_id','=',$id)->where('status','=','booked')->get();
+        $reservedcottage = DB::table('users')
             ->join('reserves','reserves.user_id','=','users.id')
             ->join('cottages', 'cottages.id','=','reserves.cottage_id')
             ->where('users.id','=',$id)
-            ->where('reserves.status','=','Accept')
+            ->where('reserves.status','=','Accepted')
+            ->where('reserve_date','>',$currentTime)
+            ->get();
+        $reservedtreehouse = DB::table('users')
+            ->join('reservetreehouses','reservetreehouses.user_id','=','users.id')
+            ->join('treehouse', 'treehouse.id','=','reservetreehouses.treehouse_id')
+            ->where('users.id','=',$id)
+            ->where('reservetreehouses.status','=','Accepted')
+            ->where('reserve_date','>',$currentTime)
+            ->get();
+        $reservedpavillion = DB::table('users')
+            ->join('reservepavillion','reservepavillion.user_id','=','users.id')
+            ->join('pavillionhalls', 'pavillionhalls.id','=','reservepavillion.pavillionhalls_id')
+            ->where('users.id','=',$id)
+            ->where('reservepavillion.status','=','Accepted')
+            ->where('reserve_date','>',$currentTime)
+            ->get();
+        $reservedfunction = DB::table('users')
+            ->join('reservefunctionhall','reservefunctionhall.user_id','=','users.id')
+            ->join('functionhalls', 'functionhalls.id','=','reservefunctionhall.functionhalls_id')
+            ->where('users.id','=',$id)
+            ->where('reservefunctionhall.status','=','Accepted')
+            ->where('reserve_date','>',$currentTime)
             ->get();
 
-        $totalbill = DB::table('reserves')
-            ->where('status','=','Accept')
-            ->where('user_id','=',$id)
-            ->sum('amount');
+
+        $totalcotbill = DB::table('reserves')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$id)->sum('amount');
+        $totalpavbill = DB::table('reservepavillion')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$id)->sum('amount');
+        $totalfuncbill = DB::table('reservefunctionhall')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$id)->sum('amount');
+        $totaltrebill = DB::table('reservetreehouses')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$id)->sum('amount');
+        $totalfacilitiesbill = $totalcotbill+$totaltrebill+$totalfuncbill+$totalpavbill;
+//countreserved
+
+        $countreservedcottage = DB::table('reserves')->where('user_id','=',$id)->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->count();
+        $countreservedtreehouse = DB::table('reservetreehouses')->where('user_id','=',$id)->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->count();
+        $countreservedfunctionhall = DB::table('reservefunctionhall')->where('user_id','=',$id)->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->count();
+        $countreservedpavillion = DB::table('reservepavillion')->where('user_id','=',$id)->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->count();
+        $countreserved = $countreservedcottage+$countreservedtreehouse+$countreservedfunctionhall+$countreservedpavillion;
+
+         $adult = DB::table('ticketprices')->select('price')->where('name','=','adult')->get();
+
+        $cottages = cottages::where('availability','available')->get();
+        $treehouse = treehouse::where('status','available')->get();
+        $functionhall = functionhall::where('status','available')->get();
+        $pavillionhall = pavillionhall::where('status','available')->get();
+
+         $bookinfo = DB::table('books')->where('user_id','=',$id)
+             ->where('book_date','>',$currentTime)
+             ->where('status','=','booked')
+             ->get();
+
+         $parkinfo = DB::table('aboutus')->get();
+
+         $adultprice = DB::table('ticketprices')->select('price')
+             ->where('name','=','adult')->value('price');
+         $childrenprice = DB::table('ticketprices')->select('price')
+             ->where('name','=','children')->value('price');
+         $adultpricetotal = $adultprice * DB::table('books')->select('no_of_adults')->where('status','=','booked')->where('user_id','=', $id)->value('no_of_adults');
+         $childrenpricetotal = $childrenprice * DB::table('books')->select('no_of_children')->where('status','=','booked')->where('user_id','=', $id)->value('no_of_children');
+         $totalbill = $adultpricetotal + $childrenpricetotal + $totalfacilitiesbill;
+         $tenpercent = 10 / 100 * $totalbill;
+
+/*ACCEPTED*/
+         $bookinfo2 = DB::table('books')->where('user_id','=',$id)
+             ->where('status','=','Accepted')
+             ->where('book_date','>',$currentTime)
+             ->get();
+         $adultpricetotal2 = $adultprice * DB::table('books')->select('no_of_adults')->where('book_date','>',$currentTime)
+                 ->where('status','=','Accepted')->where('user_id','=', $id)->value('no_of_adults');
+         $childrenpricetotal2 = $childrenprice * DB::table('books')->select('no_of_children')->where('book_date','>',$currentTime)
+                 ->where('status','=','Accepted')->where('user_id','=', $id)->value('no_of_children');
+         $totalbill2 = $adultpricetotal2 + $childrenpricetotal2 + $totalfacilitiesbill;
 
 
-        $countreserved = DB::table('users')
-            ->join('reserves','users.id','=','reserves.user_id')
-            ->join('reservetreehouses','reserves.user_id','=','reservetreehouses.user_id')
-            ->join('reservefunctionhall','reservetreehouses.user_id','=','reservefunctionhall.user_id')
-            ->join('reservepavillion','reservefunctionhall.user_id','=','reservepavillion.user_id')
-            ->where('users.id','=',Auth::User()->id)
-            ->where('reserves.status','=','Accept')
-            ->count();
 
 
 
+        if (Book::where('user_id','=', $id)->where('status','=','booked')
+            ->where('book_date','>',$currentTime)->exists())
+        {
+            $statusbook = 1;
+        }
+        elseif (Book::where('user_id','=', $id)->where('status','=','Accepted')
+            ->where('book_date','>',$currentTime)->exists())
+        {
+            $statusbook = 2;
+        }
+        else{
+            $statusbook = 0;
+        }
 
+         if (Review::where('user_id','=', $id)->exists()){
+             $statusreview = 1;
+         } else{
+             $statusreview = 0;
+         }
 
-        $cottages = cottages::where('availability','available')->limit(4)->get();
-        $treehouse = treehouse::where('status','available')->limit(4)->get();
-        $functionhall = functionhall::where('status','available')->limit(4)->get();
-        $pavillionhall = pavillionhall::where('status','available')->limit(4)->get();
-       return view('usersection.user-dashboard', compact('cottages', 'treehouse', 'functionhall', 'pavillionhall', 'data','totalbill','countreserved' ));
+         $reviewinfo = Review::with('user')->where('user_id','=', $id)->first();
+
+       return view('usersection.user-dashboard', compact('cottages', 'treehouse', 'functionhall', 'pavillionhall',
+           'reservedcottage','totalfacilitiesbill','countreserved', 'auth_info' ,'adult','statusbook','bookinfo',
+       'adultprice','childrenprice','adultpricetotal','childrenpricetotal','reservedtreehouse',
+           'reservedfunction','reservedpavillion','parkinfo','totalbill','statusreview','reviewinfo','tenpercent','id','user_booked','bookinfo2',
+           'childrenpricetotal2','adultpricetotal2','totalbill2'
+       ))->with('success', 'Profile updated!');
 
     }
+    public function printinvoice($id){
+        $currentTime = Carbon::now();
+        $user_id = Auth::id();
+        $totalcotbill = DB::table('reserves')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$user_id)->sum('amount');
+        $totalpavbill = DB::table('reservepavillion')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$user_id)->sum('amount');
+        $totalfuncbill = DB::table('reservefunctionhall')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$user_id)->sum('amount');
+        $totaltrebill = DB::table('reservetreehouses')->where('status','=','Accepted')->where('reserve_date','>',$currentTime)->where('user_id','=',$user_id)->sum('amount');
+        $totalfacilitiesbill = $totalcotbill+$totaltrebill+$totalfuncbill+$totalpavbill;
+
+
+        $adultprice = DB::table('ticketprices')->select('price')
+            ->where('name','=','adult')->value('price');
+        $childrenprice = DB::table('ticketprices')->select('price')
+            ->where('name','=','children')->value('price');
+        $parkinfo = DB::table('aboutus')->get();
+        $adultsnum = DB::table('books')->select('no_of_adults')->where('id',$id)->value('no_of_adults');
+        $childnum = DB::table('books')->select('no_of_children')->where('id',$id)->value('no_of_children');
+        $adultpricetotal2 = $adultprice * $adultsnum;
+        $childrenpricetotal2 = $childrenprice *$childnum;
+        $totalbill2 = $adultpricetotal2 + $childrenpricetotal2 + $totalfacilitiesbill;
+
+
+        $bookinfo2 = DB::table('books')->where('id',$id)->get();
+        $pdf_name = 'BPS000'.$id.'-'.'YourInvoice.pdf';
+        $pdf = PDF::loadView('usersection.print.invoice',compact('bookinfo2',
+            'parkinfo','adultprice','childrenprice','adultpricetotal2','childrenpricetotal2',
+            'totalbill2','id','totalfacilitiesbill'));
+        return $pdf->download($pdf_name);
+    }
+
+
+
+
     public function userlogout(){
         Auth()->logout();
         return redirect('/');
@@ -145,9 +258,19 @@ class IndexController extends Controller
 
     public function historyreport(){
 
-        $problems = DB::table('problems')->latest()->get();
+        $problems = DB::table('problems')
 //            ->where('status','=','unresolved')
+            ->where('users_id','=', Auth::user()->id)
+            ->latest()->get();
 
          return view('usersection.history.historyreport', compact('problems'));
     }
+
+    public function practice(){
+        $cottages = cottages::where('availability','available')->get();
+
+        return view('usersection.facilities-display', compact('cottages'));
+    }
+
+
 }

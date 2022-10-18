@@ -1784,15 +1784,8 @@ textarea.form-control:active {
 }
 
 .form-group input[type=file] {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
+
+
 }
 
 .form-text {
@@ -3818,7 +3811,14 @@ Created using IcoMoon - icomoon.io
 
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
-  position: relative;
+
+    /* Created with https://www.css-gradient.com */
+    /* Created with https://www.css-gradient.com */
+    background: #882BC3;
+    background: -webkit-linear-gradient(right, #882BC3, #4E0391);
+    background: -moz-linear-gradient(right, #882BC3, #4E0391);
+    background: linear-gradient(to left, #882BC3, #4E0391);
+    position: relative;
   height: calc(100vh - 75px);
   overflow: auto;
   width: 260px;
@@ -3846,6 +3846,7 @@ Created using IcoMoon - icomoon.io
 
 .sidebar .logo-tim,
 .off-canvas-sidebar .logo-tim {
+    background:#c06214;
   border-radius: 50%;
   border: 1px solid #333;
   display: block;
@@ -3857,6 +3858,7 @@ Created using IcoMoon - icomoon.io
 
 .sidebar .logo-tim img,
 .off-canvas-sidebar .logo-tim img {
+    background:#c06214;
   width: 60px;
   height: 60px;
 }
@@ -4062,11 +4064,11 @@ Created using IcoMoon - icomoon.io
 
 .sidebar:after,
 .off-canvas-sidebar:after {
-  background: #888;
-  background: -webkit-linear-gradient(#888 0%, #000 80%);
-  background: -o-linear-gradient(#888 0%, #000 80%);
-  background: -moz-linear-gradient(#888 0%, #000 80%);
-  background: linear-gradient(#888 0%, #000 80%);
+    /* Created with https://www.css-gradient.com */
+    background: #882BC3;
+    background: -webkit-linear-gradient(right, #882BC3, #B25CFE);
+    background: -moz-linear-gradient(right, #882BC3, #B25CFE);
+    background: linear-gradient(to left, #882BC3, #B25CFE);
   z-index: 3;
 }
 
@@ -4100,24 +4102,28 @@ Created using IcoMoon - icomoon.io
   color: #18ce0f;
 }
 
-.sidebar[data-color="orange"]:after,
+.sidebar[data-color="purple"]:after,
 .off-canvas-sidebar[data-color="orange"]:after {
-  background: #f96332;
+    /* Created with https://www.css-gradient.com */
+    background: #882BC3;
+    background: -webkit-linear-gradient(right, #882BC3, #B25CFE);
+    background: -moz-linear-gradient(right, #882BC3, #B25CFE);
+    background: linear-gradient(to left, #882BC3, #B25CFE);;
 }
 
-.sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]),
+.sidebar[data-color="purple"] .nav li.active>a:not([data-toggle="collapse"]),
 .off-canvas-sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]) {
-  color: #f96332;
+  color: #882BC3;
 }
 
-.sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]) i,
+.sidebar[data-color="purple"] .nav li.active>a:not([data-toggle="collapse"]) i,
 .off-canvas-sidebar[data-color="orange"] .nav li.active>a:not([data-toggle="collapse"]) i {
-  color: #f96332;
+  color: #882BC3;
 }
 
 .sidebar[data-color="red"]:after,
 .off-canvas-sidebar[data-color="red"]:after {
-  background: #FF3636;
+  background: #882BC3;
 }
 
 .sidebar[data-color="red"] .nav li.active>a:not([data-toggle="collapse"]),
@@ -4206,11 +4212,11 @@ Created using IcoMoon - icomoon.io
   height: 260px;
   padding-top: 80px;
   padding-bottom: 45px;
-  background: #141E30;
-  /* fallback for old browsers */
-  background: -webkit-gradient(linear, left top, right top, from(#0c2646), color-stop(60%, #204065), to(#2a5788));
-  background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
-  position: relative;
+    background: #334d50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgba(64, 96, 100, 0.78), #334d50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6ea6ad, #334d50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    position: relative;
   overflow: hidden;
 }
 
@@ -4898,7 +4904,7 @@ Created using IcoMoon - icomoon.io
 
   .navbar .dropdown-menu .dropdown-item:focus,
   .navbar .dropdown-menu .dropdown-item:hover {
-    color: #FFFFFF;
+    color: #882BC3;
   }
 
   .navbar.bg-white .dropdown-menu .dropdown-item:focus,

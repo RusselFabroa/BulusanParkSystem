@@ -24,7 +24,10 @@ class ProblemsController extends Controller
 
         return view('adminsection.problem-list-resolved', compact('problems'));
     }
-
+public function editproblem($id, Request $request){
+    $problem = problem::find($id);
+    return view('adminsection.problem-edit', compact('problem'));
+}
 
     public function updateproblem($id, Request $request){
         $problems = problem::find($id);
@@ -33,6 +36,7 @@ class ProblemsController extends Controller
         $problems->problem = $request->input('problem');
         $problems->note = $request->input('note');
         $problems->status = $request->input('status');
+        $problems->reply = $request->input('reply');
         $problems->update();
 
         return back()->with('success','Updated Successfully');

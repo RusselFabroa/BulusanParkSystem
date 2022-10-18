@@ -19,14 +19,6 @@ class ProblemController extends Controller
 //            'note'=>'required'
 //        ]);
 
-//        DB::table('problems')->insert([
-//            'users_id' => Auth::User()->id(),
-//            'users_name' => Auth::user()->name(),
-//            'users_number' => $request->mobilenumber,
-//            'problem' => $request->problem,
-//            'status' => "Unresolved",
-//            'note'=> $request->note
-//        ]);
 
 
         $problems = new problem();
@@ -36,6 +28,15 @@ class ProblemController extends Controller
         $problems->problem = $request['problem'];
         $problems->note = $request['note'];
         $problems->status = "unresolved";
+
+        if($request->file('image')){
+            $file = $request->file('image');
+            $extension=$file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/problems/',$filename);
+            $problems->image = $filename;
+        }
+
         $problems->save();
 
         return Redirect::back()->with('success','Problem Reported Successfully!');

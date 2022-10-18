@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutUs;
+use App\Models\Book;
+
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use DB; 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Models\cottages;
 use App\Models\User;
 use App\Models\Reserve;
@@ -13,117 +18,111 @@ use App\Models\ReserveFunctionHall;
 use App\Models\ReservePavillion;
 class SalesController extends Controller
 {
-    //
-     public function salesCottage()
-     {
-     	  $orders1 = Reserve::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,' %M %Y') as months"),
-              )
-              ->groupBy('months')
-              ->orderBy('created_at')
-              ->get();
 
-               $orders2 = Reserve::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,'%y') as months"),
+    public function salesfacilities()
+    {
+        $cottagesales = Reserve::selectRaw('monthname(updated_at)as month,year(updated_at)as year, sum(amount)as totalsales')
+            ->where('status', '=', 'paid')
+            ->groupBy('month', 'year')
+            ->orderBy('month', 'asc')
+            ->get();
 
-              )
-              ->groupBy('months')
+        $treehousesales = ReserveTreehouse::selectRaw('monthname(updated_at)as month,year(updated_at)as year, sum(amount)as totalsales')
+            ->where('status', '=', 'paid')
+            ->groupBy('month', 'year')
+            ->orderBy('month', 'asc')
+            ->get();
 
-              ->orderBy('created_at', 'Asc')
-              ->get()->first();
+        $functionhallsales = ReserveFunctionHall::selectRaw('monthname(updated_at)as month,year(updated_at)as year, sum(amount)as totalsales')
+            ->where('status', '=', 'paid')
+            ->groupBy('month', 'year')
+            ->orderBy('month', 'asc')
+            ->get();
+        $pavillionsales = ReservePavillion::selectRaw('monthname(updated_at)as month,year(updated_at)as year, sum(amount)as totalsales')
+            ->where('status', '=', 'paid')
+            ->groupBy('month', 'year')
+            ->orderBy('month', 'asc')
+            ->get();
+
+$monthtoday= Carbon::now()->format('F');
+        $salescot = DB::table('reserves')->where('status','=','Paid')->orderByRaw("DATE_FORMAT('d-m-Y',update_at), desc")->sum('amount');
+        $salestree = DB::table('reservetreehouses')->where('status','=','Paid')->orderByRaw("DATE_FORMAT('d-m-Y',update_at), desc")->sum('amount');
+        $salesfunc = DB::table('reservefunctionhall')->where('status','=','Paid')->orderByRaw("DATE_FORMAT('d-m-Y',update_at), desc")->sum('amount');
+        $salespav = DB::table('reservepavillion')->where('status','=','Paid')->orderByRaw("DATE_FORMAT('d-m-Y',update_at), desc")->sum('amount');
+        $totalearnings = $salescot+$salesfunc+$salestree+$salespav;
+
+        $totalsales = Book::where('status','paid')->whereMonth('updated_at', Carbon::now()->month)
+                        ->get();
+        $countsales = Book::where('status','paid')->whereMonth('updated_at', Carbon::now()->month)->sum('total_bill');
 
 
-        return view ('adminsection.Sales.cottage')->with(compact('orders1', 'orders2'));
-   	}
-
-
-   	  public function salesTreehouse()
-     {
-     	  $orders1 = ReserveTreehouse::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,' %M %Y') as months"),
-              )
-              ->groupBy('months')
-              ->orderBy('created_at')
-              ->get();
-  $orders2 = ReserveTreehouse::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,'%y') as months"),
-
-              )
-              ->groupBy('months')
-
-              ->orderBy('created_at', 'Asc')
-              ->get()->first();
-
-        return view ('adminsection.Sales.treehouse')->with(compact('orders1', 'orders2'));
-   	}
-
- 
-      public function salesFunctionhall()
-     {
-        $orders1 = ReserveFunctionHall::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,' %M %Y') as months"),
-              )
-              ->groupBy('months')
-              ->orderBy('created_at')
-              ->get();
-  $orders2 = ReserveFunctionHall::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,'%y') as months"),
-
-              )
-              ->groupBy('months')
-
-              ->orderBy('created_at', 'Asc')
-              ->get()->first();
-
-        return view ('adminsection.Sales.functionhall')->with(compact('orders1', 'orders2'));
+        return view('adminsection.Sales.facilities-sale', compact('cottagesales', 'treehousesales',
+            'functionhallsales', 'pavillionsales', 'salescot', 'totalearnings', 'monthtoday','totalsales', 'countsales'));
     }
 
-  public function salesPavillionhall()
-     {
-        $orders1 = ReservePavillion::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,' %M %Y') as months"),
-              )
-              ->groupBy('months')
-              ->orderBy('created_at')
-              ->get();
-  $orders2 = ReservePavillion::where('status','New')->select(
-           DB::raw('sum(amount) as sums'), 
-           DB::raw("DATE_FORMAT(created_at,'%y') as months"),
+    public function salestickets(){
+        $ticketsales = Book::selectRaw('monthname(book_date)as month,year(book_date)as year, sum(ticket_price)as totalsales')
+            ->where('status', '=', 'paid')
+            ->groupBy('month', 'year')
+            ->orderBy('month', 'desc')
+            ->get();
+        $ticketsalestotal = Book::selectRaw('monthname(book_date)as month,year(book_date)as year, sum(ticket_price)as totalsales')
+            ->where('status', '=', 'paid')
+            ->groupBy('month', 'year')
+            ->orderBy('year', 'desc')
+            ->get();
 
-              )
-              ->groupBy('months')
+        $totalsales = Book::where('status','paid')->first();
 
-              ->orderBy('created_at', 'Asc')
-              ->get()->first();
-
-        return view ('adminsection.Sales.pavillion')->with(compact('orders1', 'orders2'));
+        return view('adminsection.Sales.tickets-sale',compact('ticketsales','ticketsalestotal', 'totalsales'));
     }
 
-
-   	 public function a(){
-
-        
-      $orders1 = Reserve::where('status',"New")->select(
-           DB::raw('amount as sums'), 
-           DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"),
-          
-              )
-              ->groupBy('months')
-              ->orderBy('created_at', 'Asc')
-              ->get();
-
-         dd ($orders1); die;
-
-        return view ('adminsection.Sales.cottage')->with(compact('orders1'));
-
-        // return view ('admin.sales.daysale')->with(compact('data'));
-
+    public function salesanually(){
+        $anuallysales = Book::where('status','paid')->whereYear('book_date', Carbon::now()->year)
+            ->get();
+        $countsales = Book::where('status','paid')->whereYear('book_date', Carbon::now()->year)->sum('total_bill');
+        return view('adminsection.Sales.anually-sale',compact('anuallysales','countsales'));
     }
+    public function printanually(){
+        $anuallysales = Book::where('status','paid')->whereYear('book_date', Carbon::now()->year)
+            ->get();
+        $countsales = Book::where('status','paid')->whereYear('book_date', Carbon::now()->year)->sum('total_bill');
+        $name = AboutUs::pluck('name')->first();
+
+        return view('adminsection.Sales.print.anual-report',compact('anuallysales','countsales', 'name'));
+    }
+
+    public function generatepdfanually(){
+        $anuallysales = Book::where('status','paid')->whereYear('book_date', Carbon::now()->year)
+            ->get();
+        $countsales = Book::where('status','paid')->whereYear('book_date', Carbon::now()->year)->sum('total_bill');
+        $year = Carbon::now()->format('Y');
+        $name = AboutUs::pluck('name')->first();
+        $pdf_name = $year . ' Earnings Report.pdf';
+        $pdf = PDF::loadView('adminsection.Sales.print.anual-report',compact('anuallysales','countsales','name'))->setPaper('a4','landscape');
+
+        return $pdf->download($pdf_name);
+    }
+
+    public function printmonthly(){
+        $totalsales = Book::where('status','paid')->whereMonth('updated_at', Carbon::now()->month)
+            ->get();
+        $countsales = Book::where('status','paid')->whereMonth('updated_at', Carbon::now()->month)->sum('total_bill');
+        $name = AboutUs::pluck('name')->first();
+        $monthtoday= Carbon::now()->format('F');
+
+        return view('adminsection.Sales.print.monthly-report',compact('totalsales','countsales', 'name','monthtoday'));
+    }
+    public function generatepdfmonthly(){
+        $totalsales = Book::where('status','paid')->whereMonth('updated_at', Carbon::now()->month)
+            ->get();
+        $countsales = Book::where('status','paid')->whereMonth('updated_at', Carbon::now()->month)->sum('total_bill');
+        $name = AboutUs::pluck('name')->first();
+        $monthtoday= Carbon::now()->format('F');
+        $pdf_name = $monthtoday . ' Earnings Report.pdf';
+        $pdf = PDF::loadView('adminsection.Sales.print.monthly-report',compact('totalsales','countsales','name','monthtoday'))->setPaper('a4','landscape');
+
+        return $pdf->download($pdf_name);
+    }
+
 }

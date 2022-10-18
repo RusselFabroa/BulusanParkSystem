@@ -71,7 +71,7 @@
             @include('flash-message')
         </div>
             <p>Inventory Cottage Sales</p>
-           
+
 
 
     @if(Session::has('cottages_update'))
@@ -82,20 +82,20 @@
                     <th>Month</th>
                     <th>Monthly Sales Report</th>
                 </tr>
-                
+
                 @foreach($orders1 as $key => $item)
                 <tr>
-                    <td width="10%">{{  $item['months'] }}</td>
+                    <td width="10%">{{  $item['months']}}</td>
                     <td width="20%">Php. {{  $item['sums'] }}</td>
-                   
-                    
+
+
                 </tr>
                  @endforeach
                  <td><strong>Total Sales:</strong></td>
                   <td colspan="2"><strong>Php. {{  $orders2['sums'] }}</strong></td>
 
             </table>
- 
+
 
     </div>
 </body>

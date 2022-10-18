@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Models\admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -58,10 +59,15 @@ class LoginController extends Controller
             'email.exists'=>'This email is not exist.'
         ]);
 
+
         $credentials = $request->only('email', 'password' );
         if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->route('user.home');
+                return redirect()->route('user.home');
         }
+//         else if(Auth::guard('admin')->attempt($credentials)){
+//             return redirect()->route('admin.home');
+//        }
+
         else{
             return redirect()->route('user.login')->with('error', 'Invalid Credentials');
         }

@@ -16,15 +16,22 @@ class ReserveTreehouseController extends Controller
     {
         // $cottages = cottages::where('id', $id)->first();
             $treehouse = DB::table('treehouse')->where('id', $id)->first();
-       return view('usersection.reservetreehouse', compact('treehouse'));
+        $user_id = Auth::id();
+        $user = DB::table('users')->where('id',$user_id)->first();
+       return view('usersection.reservetreehouse', compact('treehouse','user'));
 
     }
 
       public function saveTreehousesReserve(Request $request){
 
-        //pag-save ng image sa local storage
-            // $cottages = DB::table('cottages')->where('id', $id)->first();
-      // dd($productdata);
+          $request->validate([
+              'date'=> 'required|after:today',
+              'enddate'=>'required|after:date',
+              'mobilenumber'=>'required|digits:11',
+              'note'=>'required',
+              'address'=>'required'
+          ]);
+
             $reserve = new ReserveTreehouse;
  			    $reserve->user_id = Auth::User()->id;
            $reserve->amount = $request->price;

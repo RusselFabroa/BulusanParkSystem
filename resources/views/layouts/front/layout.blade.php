@@ -26,7 +26,70 @@
         <!-- JQUERY -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<!--Owl carousel-->
+        <link  href="{{asset('assets/frontend/css/owl.carousel.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/frontend/css/owl.theme.default.min.css')}} " rel="stylesheet" >
+        @yield('head')
+
+        <style>
+            body{
+                background-image: url('/img/bg1.jpg');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+
+        </style>
         @yield('style')
+
+        <style>
+            .rating {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: left;
+            }
+
+            .rating > input{ display:none;}
+
+            .rating > label {
+                position: relative;
+                width: 1em;
+                font-size: 3vw;
+                color: #FFD600;
+                cursor: pointer;
+            }
+            .rating > label::before{
+                content: "\2605";
+                position: absolute;
+                opacity: 0;
+            }
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before {
+                opacity: 1 !important;
+            }
+
+            .rating > input:checked ~ label:before{
+                opacity:1;
+            }
+
+            .rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+
+            body{ }
+            h1, p{
+                text-align: left;
+
+            }
+
+            h1{
+                margin-top:150px;
+            }
+            p{ font-size: 1.2rem;}
+            @media only screen and (max-width: 600px) {
+                h1{font-size: 14px;}
+                p{font-size: 12px;}
+            }
+
+        </style>
+
     </head>
     <body>
         <!-- Navigation-->
@@ -71,6 +134,8 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a type="button" style="color: #9f5b5b" class="nav-link active" aria-current="page" data-bs-target="#problemmodal" data-bs-toggle="modal" data-bs-dismiss="modal">Report Problem</a></li>
+                        <li class="nav-item"><a type="button" style="color: #2d2c2c" class="nav-link active" aria-current="page" data-bs-target="#reviewmodal" data-bs-toggle="modal" data-bs-dismiss="modal">Rate Us</a></li>
+
                     </ul>
                     @guest
                             @if (Route::has('login'))
@@ -86,12 +151,26 @@
                             @endif
                         @else
                 @endguest
-                        <button class="btn btn-outline-dark" type="submit">
-                            <!-- <i class="bi-cart-fill me-1"></i> -->
-                            <a href="{{route('user.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>
-                            <form action="{{route('user.logout')}}" id="logout-form" method="get"> </form>
-                            <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                        </button>
+                    <div class="dropdown">
+                        <a  style="width: max-content;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{$authname}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Manage Account</a></li>
+                            <li>
+                                <a href="{{route('user.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>
+                                <form action="{{route('user.logout')}}" id="logout-form" method="get"> </form>
+                                <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+{{--                        <button class="btn btn-outline-dark" type="submit">--}}
+{{--                            <!-- <i class="bi-cart-fill me-1"></i> -->--}}
+{{--                            <a href="{{route('user.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>--}}
+{{--                            <form action="{{route('user.logout')}}" id="logout-form" method="get"> </form>--}}
+{{--                            <span class="badge bg-dark text-white ms-1 rounded-pill"></span>--}}
+{{--                        </button>--}}
                 </div>
             </div>
         </nav>
@@ -104,7 +183,18 @@
                 </button>
             </div>
         @endif
-
+        @if ($message = Session::get('success-book'))
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                {{$message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('error-book'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{$message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
 
         <!-- Header-->
@@ -156,6 +246,13 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
+                                            <label for="image" class="form-label">Image(Optional)</label>
+                                            <input class="form-control" type="file" id="image" name="image">
+                                            <span style="font-size: 15px" class="text-danger">@error('image'){{$message}}@enderror</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
 
                                             <textarea class="form-control" name="note" id="note" type="text" placeholder="Describe or Specify the Problem"></textarea>
                                             <span style="font-size: 15px" class="text-danger">@error('note'){{$message}}@enderror</span>
@@ -174,6 +271,11 @@
             </div>
         </div>
         {{--END MODALS--}}
+
+
+
+
+
 
 
     </body>

@@ -185,6 +185,7 @@
                         </ul>
                     </div>
                 </nav>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="aboutusbody" data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="0">
                 <div id="about" class="container-fluid bg-grey">
@@ -198,62 +199,105 @@
                         <div class="col-sm-7 slideanim">
                             <div class="row">
                                 <p style=" text-align: justify; text-justify:inter-word;">
-                                        This is approximately four(4) hectares land, the three hectares is donated by a generous family in Bulusan and the remaining one hectare was purchased by the City Government on Mayor Arnan Panaligan's first term in the service.<br>
-                                        In 1992, this was first open as Bulusan Park.<br>
-                                        On the 15th Foundation Anniversary of Calapan it was changed to Calapan Recreational and Zoological Park lead by Mayor Doy Leachon last March 18, 2007. The same day the mini zoo was open, were different animals can be seen such as tiger, donkey, ostrich, monkey, deer, wild cats and different kinds of birds.<br>
-                                        Extreme sports enthusiast will also enjoy, we have zipline and wall climbing, play around for kids and obstacles for team building.
+                                   <strong>{{$info->name}}</strong> <br>
+                                      {{$info->description}}
                                 </p>
+                                <h3>Address</h3>
+                                {{$info->address}}
                             </div>
                         </div>
                     </div>
              </div>
-                <div id="socmed" class="container-fluid bg-info" style="padding-top:10px; margin: 10px">
+                <div id="socmed" class="container-fluid bg-info" style="padding-top:20px; padding-bottom:50px; margin: 10px; margin-bottom: 30px">
                     <h2 class="text-center">Social Media</h2><br>
-                        <div class="col-sm-7 ">
-                            <div class="row">
-                                <p style=" text-align: justify; text-justify:inter-word;">
-                                        This is approximately four(4) hectares land, the three hectares is donated by a generous family in Bulusan and the remaining one hectare was purchased by the City Government on Mayor Arnan Panaligan's first term in the service.<br>
-                                        In 1992, this was first open as Bulusan Park.<br>
-                                        On the 15th Foundation Anniversary of Calapan it was changed to Calapan Recreational and Zoological Park lead by Mayor Doy Leachon last March 18, 2007. The same day the mini zoo was open, were different animals can be seen such as tiger, donkey, ostrich, monkey, deer, wild cats and different kinds of birds.<br>
-                                        Extreme sports enthusiast will also enjoy, we have zipline and wall climbing, play around for kids and obstacles for team building.
-                                </p>
-
+                        <div class="row" style="padding-left: 30px;">
+                            <div class="col" >
+                                    <div class="container-sm">
+                                        <span>
+                                            <i class="fa-brands fa-facebook fa-5x"></i>
+                                            <h5>Bulusan Park </h5>
+                                        </span>
+                                    </div>
+                            </div>
+                            <div class="col">
+                                <div class="container-sm">
+                                        <span>
+                                            <i class="fa-brands fa-instagram fa-5x"></i>
+                                            <h5>Bulusan Park </h5>
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="container-sm">
+                                        <span>
+                                            <i class="fa-brands fa-twitter fa-5x"></i>
+                                            <h5>Bulusan Park </h5>
+                                        </span>
+                                </div>
                             </div>
                         </div>
+
                 </div>
 
 
 
                 <div id="contact" class="container-fluid bg-grey" style="margin-top: 30px">
                     <h2 class="text-center">CONTACT</h2>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <p>Contact us and we'll get back to you within 24 hours.</p>
-                            <p><span class="glyphicon glyphicon-map-marker"></span> Calapan Nature Park</p>
-                            <p><span class="glyphicon glyphicon-phone"></span> 09309695287</p>
-                            <p><span class="glyphicon glyphicon-envelope"></span> bulusanpark2311.gmail.com</p>
+                    <div class="card">
+                        <div class="card-header">
+
                         </div>
-                        <div class="col-sm-7 slideanim">
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-                                </div>
-                                <div class="col-sm-6 form-group">
-                                    <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
-                                </div>
-                            </div>
-                            <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
-                            <div class="row">
-                                <div class="col-sm-12 form-group">
-                                    <button class="btn btn-default pull-right" type="submit">Send</button>
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <div class="mb-3 row">
+                                    <label for="name" class="col-sm-4 col-form-label pull-right">Gcash(globe number)</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$info->gcash_number}}" readonly>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="mb-3">
+                                <div class="mb-3 row">
+                                    <label for="name" class="col-sm-4 col-form-label pull-right">Paymaya(smart number)</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$info->paymaya_number}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="mb-3 row">
+                                    <label for="name" class="col-sm-4 col-form-label pull-right">Bank account 1</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$info->bankaccount1_name}} {{$info->bankaccount1}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="mb-3 row">
+                                    <label for="name" class="col-sm-4 col-form-label pull-right">Bank account 2</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$info->bankaccount2_name}} {{$info->bankaccount2}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="mb-3 row">
+                                    <label for="name" class="col-sm-4 col-form-label pull-right">Bank account 3</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="name" name="name" value="{{$info->bankaccount3_name}} {{$info->bankaccount3}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>

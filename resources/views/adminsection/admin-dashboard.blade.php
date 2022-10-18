@@ -1,57 +1,64 @@
-@extends('layouts.sidebar')
+
+@extends('layouts.admin.master')
+@section('dashboard')
+    class="active"
+@endsection
 @section('content')
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <title>Bulusan Park</title>
-
-    <link rel="stylesheet" href="/css/adm-dash" type="text/css">
-    <style>
-        .main-panel{
-            width: 75%;
-            margin-left: 22%;
-        }
-    </style>
-</head>
-<body>
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a>Dashboard</a></li>
-<!--        <li class="breadcrumb-item active" aria-current="page">Library</li>-->
-    </ol>
-</nav>
-        <div class="message-content" style="padding: 20px">
-            <div class="container-sm">
-                <div class="card-header">
-                    <h4 class="text-center">USERS</h4>
+<div class="card" id="card-content">
+    <div class="card-header"></div>
+    <div class="card-body">
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card  h-100 py-2 px-2">
+                    <div class="card-body">
+                        <div class="row  align-items-center">
+                            <div class="col  ">
+                                <div class="text-xs text-primary text-uppercase mb-1">
+                                    Earnings (Monthly)</div>
+                                <div class="h5 mb-0 text-gray-800">{{$monthtoday}} : ₱ {{$totalearnings}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body" style="display: flex">
-                    <div class="container px-4">
-                        <div class="row gx-5">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header"><strong>Verified User</strong></div>
+            </div>
 
-                                    <div class="card-body text-center">{{$totalverifiedusers}}</div>
-                                </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2 px-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs  text-success text-uppercase mb-1">
+                                    Earnings (Annual)</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">₱ {{$totalearnings}}</div>
                             </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header"><strong>Verified Admin</strong></div>
-                                    <div class="card-body text-center">{{$totaladmin}}</div>
-                                </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                             </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header"><strong>Pending User</strong></div>
-                                    <div class="card-body text-center">{{$totalnotverified}}</div>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Pending Requests Card Example -->
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 px-2 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs text-warning text-uppercase mb-1">
+                                    <a href="/admin/book-list" style="text-decoration: none">Unpaid Books</a></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$unpaidbooks}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -59,61 +66,181 @@
             </div>
         </div>
 
-        {{--   END USER     --}}
+        <!--NEW ROWWWWW-->
 
-        {{--chart CONTENT--}}
-        <div class="message-content" style="padding: 20px">
-            <div class="container-sm">
-                <div class="card-header">
-                    <h4 class="text-center">Pending Reservations</h4>
-                </div>
-                <div class="card-body" style="display: flex">
-                    <div class="container px-4">
-                        <div class="row gx-5">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                            <tr class="text-center">
-                                                <th>Cottages</th>
-                                                <th>Tree House</th>
-                                                <th>Function Hall</th>
-                                                <th>Pavilion Hall</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="text-center">
-                                                <td ><strong><a href="/admin/inventorycottage">{{$countCot}}</a></strong></td>
-                                                <td><strong><a href="/admin/inventorytreehouse">{{$countTre}}</a></strong></td>
-                                                <td><strong><a href="/admin/inventoryfunctionhall">{{$countFun}}</a></strong></td>
-                                                <td><strong><a href="/admin/inventorypavillion">{{$countPav}}</a></strong></td>
-                                                <td></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+        <div class="col-xxl-4">
+            <div class="row">
+                <div class="col-xl-6 col-xxl-12">
+                    <!-- Team members / people dashboard card example-->
+                    <div class="card shadow mb-4">
+                        <div class="card-header mb-4">Pending Reservation</div>
+                        <div class="card-body">
+                            <!-- Item 1-->
+                            <div class="d-flex align-items-center justify-content-between mb-4">
 
+                                <div class="d-flex align-items-center flex-shrink-0 me-3">
 
+                                    <div style="margin-left: 20px;" class="d-flex flex-column fw-bold">
+                                        <div  class="h5 mb-0 font-weight-bold text-gray-800">Cottage</div>
+                                        <div class="small text-muted line-height-normal">pending reservation</div>
+                                    </div>
 
+                                </div>
+                                <div class="text" style="margin-right: 30px;font-size: 30px;">
+                                    <a href="/admin/inventorycottage" style="text-decoration: none;">{{$countCot}}</a>
+                                </div>
 
+                            </div>
+                            <!-- Item 1-->
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="d-flex align-items-center flex-shrink-0 me-3">
+                                    <div style="margin-left: 20px;" class="d-flex flex-column fw-bold">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Tree House</div>
+                                        <div class="small text-muted line-height-normal">pending reservation</div>
                                     </div>
                                 </div>
+                                <div class="text" style="margin-right: 30px;font-size: 30px;">
+                                    <a href="/admin/inventorytreehouse" style="text-decoration: none;"> {{$countTre}}</a>
+                                </div>
                             </div>
+                            <!-- Item 1-->
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="d-flex align-items-center flex-shrink-0 me-3">
+                                    <div style="margin-left: 20px;" class="d-flex flex-column fw-bold">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Function Hall</div>
+                                        <div class="small text-muted line-height-normal">pending reservation</div>
+                                    </div>
+                                </div>
+                                <div class="text" style="margin-right: 30px;font-size: 30px;">
+                                    <a href="/admin/inventoryfunctionhall" style="text-decoration: none;">{{$countFun}}</a>
+                                </div>
+                            </div>
+                            <!-- Item 1-->
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="d-flex align-items-center flex-shrink-0 me-3">
+                                    <div style="margin-left: 20px;" class="d-flex flex-column fw-bold">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Pavillion Hall</div>
+                                        <div class="small text-muted line-height-normal">pending reservation</div>
+                                    </div>
+                                </div>
+                                <div class="text" style="margin-right: 30px;font-size: 30px;">
+                                    <a href="/admin/inventorypavillion" style="text-decoration: none;">{{$countPav}}</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-xxl-12">
+                    <!-- Project tracker card example-->
+                    <div class="card card-header-actions mb-4">
+                        <div class="card-header">
+                            USERS
+
+                        </div>
+                        <div class="card-body">
+                            <a href="/admin/manageuser-userlist" style="text-decoration: none">
+                                <div class="col-xl-6 col-md-6 mb-7">
+                                    <div class="card border-left-success shadow h-100 px-2 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Not Verified Users</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <h3>{{$totalnotverified}}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="/admin/manageuser-userlist" style="text-decoration: none">
+                                <div class="col-xl-10 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 px-2 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Verified User</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <h3>{{$totalverifiedusers}}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="/admin/manageuser-list" style="text-decoration: none">
+                                <div class="col-xl-12 col-md-6 mb-4" >
+                                    <div class="card border-left-success shadow h-100 px-2 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2" >
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="text-decoration: none">
+                                                        Registered Admin</div>
+                                                </div>
+                                                <div class="col-auto" >
+                                                    <h3 style="text-decoration:none">{{$totaladmin}}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Illustration dashboard card example-->
+
         </div>
 
-        {{--   END charts     --}}
+        <div class="card card-header-actions mb-4 container-fluid">
+            <div class="card-header">
+                <h2>Report Chart</h2>
+            </div>
+            <div class="card-body px-0 antialiased">
+
+                <div id="linechart" style="width: 1000px; height: 500px"></div>
+
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    var chart_user = <?php echo $chart_users; ?>;
+                    console.log(chart_user);
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(lineChart);
+                    function lineChart() {
+                        var data = google.visualization.arrayToDataTable(chart_user);
+                        var options = {
+                            title: 'Total Visitors by Age',
+                            curveType: 'function',
+                            legend: {
+                                position: 'bottom'
+                            }
+                        };
+                        var chart = new google.visualization.BarChart(document.getElementById('linechart'));
+                        chart.draw(data, options);
+                    }
+                </script>
 
 
 
 
-</body>
-</html>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 
 @endsection
+
+
 
 

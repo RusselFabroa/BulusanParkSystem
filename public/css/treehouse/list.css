@@ -1,31 +1,31 @@
-thead th{
-    background-color: blue;
-    color: white;
 
-}
 
 .head{
     display:block;
 }
 .head a{
     float: right;
-    font-size: 20px;
+    font-size: 15px;
     color: #000000;
-    width: 100px;
+    width: fit-content;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
     border: 1px solid rgb(34, 37, 28);
     border-radius: 5px;
     text-decoration: none;
-    padding: 5px 7px; 
+    padding: 5px 7px;
     margin-right:20px;
+    margin-bottom: 10px;
     background-color: rgb(230, 158, 23);
 }
 .head a:hover{
     background-color: rgb(235, 195, 121);
 }
 table{
+    font-size: 13px;
+
     padding-top: 10px;
+
 }
 table th{
     background-color: blue;
@@ -50,5 +50,5 @@ table th{
     background-color:  #317955;
     border-radius: 5px ;
     padding: 7px;
-    margin:0; 
+    margin:0;
 }

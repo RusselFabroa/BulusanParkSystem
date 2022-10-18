@@ -15,18 +15,21 @@ class ReserveCottageController extends Controller
     //
      public function index( $id)
     {
+
         // $cottages = cottages::where('id', $id)->first();
             $cottages = DB::table('cottages')->where('id', $id)->first();
-       return view('usersection.reservecottage', compact('cottages'));
+             $user_id = Auth::id();
+            $user = DB::table('users')->where('id',$user_id)->first();
+       return view('usersection.reservecottage', compact('cottages','user'));
 
     }
 
     public function saveCottagesReserve(Request $request){
 
       $request->validate([
-              'date'=> 'required|date|after:today',
-              'enddate'=>'required|date|after:start_date',
-              'mobilenumber'=>'required|min:11|max:11',
+              'date'=> 'required|after:today',
+              'enddate'=>'required|after:date',
+              'mobilenumber'=>'required|digits:11',
               'note'=>'required',
               'address'=>'required'
           ]);

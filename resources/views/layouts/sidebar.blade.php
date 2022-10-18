@@ -16,72 +16,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
 <body>
 
-        <div class="sidebar">
-        <img class="logo" src="{{asset('img/logo.png')}}" alt="logo" style="z-index:1000">
-                <div class="menu">
-                    <div class="item"><a href="{{route('admin.home')}}"><i class="fas fa-bars"></i> Dashboard</a></div>
-                    <div class="item">
-                        <a class="sub-btn"><i class="fas fa-home"></i> Facilities<i class="fas fa-angle-right dropdown"></i></a>
-                        <div class="sub-menu">
-                            <a href="/admin/listcottages" class="sub-item">Cottages</a>
-                            <a href="/admin/treehouselist" class="sub-item">Tree House</a>
-                          <a href="/admin/functionhall-list" class="sub-item">Function Hall</a>
-                            <a href="/admin/pavillionhall-list" class="sub-item">Pavillion Hall</a>
-                        </div>
-                    </div>
-                    <div class="item" id="item1"><a href="/admin/activities-list"><i class="fa fa-futbol-o"></i> Activities</a></div>
-                    <div class="item" id="item2"><a href="/admin/animals-list"><i class="fa fa-paw"></i> Animals</a></div>
-                    <div class="item" id="item3"><a href="/admin/events-list"><i class="fa fa-calendar"></i> Events</a></div>
-                    <div class="item" id="item3"><a href="/admin/slider-list"><i class="fa fa-file-photo-o"></i> Sliders</a></div>
-                     <div class="item" id="item4">
-                        <a class="sub-btn"><i class="fa fa-folder"></i> Inventory<i class="fas fa-angle-right dropdown"></i></a>
-
-                        <div class="sub-menu">
-                            <a href="/admin/inventorycottage" class="sub-item">Cottages</a>
-                            <a href="/admin/inventorytreehouse" class="sub-item">Tree House</a>
-                            <a href="/admin/inventoryfunctionhall" class="sub-item">Function Hall</a>
-                            <a href="/admin/inventorypavillion" class="sub-item">Pavillion Hall</a>
-                        </div>
-                    </div>
-                        <div class="item" id="item4">
-                        <a class="sub-btn"><i class="fa fa-folder"></i> Sales<i class="fas fa-angle-right dropdown"></i></a>
-                        <div class="sub-menu">
-                            <a href="/admin/salesCottage" class="sub-item">Cottages</a>
-                            <a href="/admin/salesTreehouse" class="sub-item">Tree House</a>
-                            <a href="/admin/salesFunctionhall" class="sub-item">Function Hall</a>
-                            <a href="/admin/salesPavillionhall" class="sub-item">Pavillion Hall</a>
-                        </div>
-                    </div>
-                    <div class="item" id="item5"><a href="{{route('admin.list.problem')}}"><i class="fa fa-exclamation-triangle"></i>Reports
-                            <span class="badge bg-danger">{{$countproblem}}</span>
-                        </a></div>
-                    <div class="item" id="item4">
-                        <a class="sub-btn"><i class="fa fa-address-book"></i>Users Management<i class="fas fa-angle-right dropdown"></i></a>
-
-                        <div class="sub-menu">
-                            <a href="" class="sub-item">Admin</a>
-                            <a href="" style="font-size: 15px" class="sub-item">Verified Customer</a>
-                        </div>
-                    </div>
-
-                    <div class="item" id="item5"><a href="#"><i class="fas fa-info-circle"></i> AboutUs</a></div>
-                </div>
+<div class="sidebar">
+    <img class="logo" src="{{asset('img/logo.png')}}" alt="logo" style="z-index:1000">
+    <div class="menu">
+        <div class="item"><a href="{{route('admin.home')}}"><i class="fas fa-bars"></i> Dashboard</a></div>
+        <div class="item">
+            <a class="sub-btn"><i class="fas fa-home"></i> Facilities<i class="fas fa-angle-right dropdown"></i></a>
+            <div class="sub-menu">
+                <a href="/admin/listcottages" class="sub-item">Cottages</a>
+                <a href="/admin/treehouselist" class="sub-item">Tree House</a>
+                <a href="/admin/functionhall-list" class="sub-item">Function Hall</a>
+                <a href="/admin/pavillionhall-list" class="sub-item">Pavillion Hall</a>
+            </div>
         </div>
+        <div class="item" id="item1"><a href="/admin/activity-list"><i class="fa fa-futbol-o"></i> Activities</a></div>
+        <div class="item" id="item2"><a href="/admin/animals-list"><i class="fa fa-paw"></i> Animals</a></div>
+        <div class="item" id="item3"><a href="/admin/events-list"><i class="fa fa-calendar"></i> Events</a></div>
+        <div class="item" id="item3"><a href="/admin/slider-list"><i class="fa fa-file-photo-o"></i> Sliders</a></div>
+        <div class="item" id="item3"><a href="/admin/book-list"><i class="fa fa-address-book"></i> Ticketing/Book</a></div>
+        <div class="item" id="item4">
+            <a class="sub-btn"><i class="fa fa-folder"></i>Inventory<i class="fas fa-angle-right dropdown"></i></a>
+
+            <div class="sub-menu">
+                <a href="/admin/inventorycottage" class="sub-item">Cottages</a>
+                <a href="/admin/inventorytreehouse" class="sub-item">Tree House</a>
+                <a href="/admin/inventoryfunctionhall" class="sub-item">Function Hall</a>
+                <a href="/admin/inventorypavillion" class="sub-item">Pavillion Hall</a>
+            </div>
+        </div>
+        <div class="item" id="item3"><a href="/admin/salesfacilities"><i class="fa fa-folder-open"></i>Sales</a></div>
+
+        <div class="item" id="item5"><a href="{{route('admin.list.problem')}}"><i class="fa fa-exclamation-triangle"></i>Reports
+                <span class="badge bg-danger">{{$countproblem}}</span>
+            </a></div>
+
+        <div class="item" id="item3"><a href="/admin/manageuser-list"><i class="fa fa-address-book"></i> Users Management</a></div>
+        <div class="item" id="item3"><a href="/admin/settings"><i class="fa-solid fa-gears"></i>Settings</a></div>
+
+        <div class="item" id="item5"><a href="/admin/aboutus-list"><i class="fas fa-info-circle"></i> AboutUs</a></div>
+    </div>
+</div>
 
 
 
 
 <script type="text/javascript">
     $(document).ready(function(){
-      $('.sub-btn').click(function(){
-          $(this).next('.sub-menu').slideToggle();
-          $(this).find('.dropdown').toggleClass('rotate');
-      })
+        $('.sub-btn').click(function(){
+            $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('rotate');
+        })
     });
 </script>
 
@@ -101,33 +90,45 @@
 {{--    </ul>--}}
 {{--</div>--}}
 <div class="header-title" style="position: fixed; width: 80%; top: 0px; z-index: 2;">
-        <div class="m-8">
-            <nav class="shadow p-1 navbar navbar-expand-sm navbar-light bg-light">
-                <div class="container-fluid">
-                    <a href="#" class="navbar-brand">Calapan Recreational and Zoological Park </a>
-                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div id="navbarCollapse" class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav ms-auto">
+    <div class="m-8">
+        <nav class="shadow p-1 navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">Calapan Recreational and Zoological Park </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ms-auto">
 
 
+                        <li class="nav-item dropdown text-dark">
+                            <a href="#" class="nav-link text-dark" data-bs-toggle="dropdown">Notification
+                                <span class="position-absolute top-2 start-99 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                  </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="" class="dropdown-item">Something</a>
+                                {{--                                    <a href="#" class="dropdown-item">Settings</a>--}}
+                            </div>
+                        </li>
 
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item">Reports</a>
-                                    <a href="#" class="dropdown-item">Settings</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="{{route('admin.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>
-                                    <form action="{{route('admin.logout')}}" id="logout-form" method="get"> </form>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="{{route('admin.list.problem')}}" class="dropdown-item">Reports</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{{route('admin.logout')}}" class="dropdown-item" ONCLICK="event.preventDefault();document.getElementById('logout-form').submit();">LOGOUT</a>
+                                <form action="{{route('admin.logout')}}" id="logout-form" method="get"> </form>
+                            </div>
+                        </li>
+
+                    </ul>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
+    </div>
 </div>
 
 <!-- mainpanellll -->
@@ -138,3 +139,6 @@
 
 </body>
 </html>
+
+    @yield('script')
+

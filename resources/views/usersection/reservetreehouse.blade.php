@@ -29,7 +29,11 @@
     </style>
 @endsection
 @section('content')
-
+    <header class=" py-5" style="height: 50px;background-color: rgb(250, 135, 41);" >
+        <div class="text-center text-light" style="position: relative;top: -2.3rem">
+            <h2 class="display-3" style="font-size: 50px;">Reservation</h2>
+        </div>
+    </header>
 
     <main class="my-5">
         <div class="container">
@@ -79,7 +83,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
-                                            <input style="height: 40px;" class="form-control" name="mobilenumber" id="mobilenumber" type="number" placeholder="Number" />
+                                            <input style="height: 40px;" class="form-control" name="mobilenumber" id="mobilenumber" type="number" placeholder="{{$user->phone_number}}" value="{{$user->phone_number}}" readonly />
                                             <span style="font-size: 15px" class="text-danger">@error('mobilenumber'){{$message}}@enderror</span>
                                         </div>
                                     </div>

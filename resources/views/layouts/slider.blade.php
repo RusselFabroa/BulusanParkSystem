@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" >
 
     <div class="carousel-inner">
 
@@ -12,7 +12,8 @@
         @foreach($sliders as $slider)
         <div class="carousel-item {{$i=='1' ? 'active':''}}">
             @php $i++; @endphp
-            <img src="{{ asset('uploads/slider/'.$slider->image)}}" id="slidersss" class="d-block w-100" height="500px" alt="...">
+
+            <img src="{{ asset('uploads/slider/'.$slider->image)}}" id="slidersss" class="d-block w-100 img-responsive" style="max-height: 500px; border: 2px orange"  alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h3><b>{{$slider->heading}}</b></h3>
                 <p class="text-center">{{$slider->description}}</p>

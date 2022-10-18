@@ -1,4 +1,8 @@
-@extends('layouts.sidebar')
+@extends('layouts.admin.master')
+
+@section('facilities')
+    class="active"
+    @endsection
 @section('content')
     <!DOCTYPE html>
 <html lang="en">
@@ -14,56 +18,64 @@
     <link rel="stylesheet" href="/css/treehouse/add.css" type="text/css">
 </head>
 <body>
-
-<form class="form-style-9" action="{{route('admin.save.functionhall')}}" method="post" enctype="multipart/form-data">
-    @csrf
-    <h3>Add Function Hall  <a href='/admin/functionhall-list'>Back to List</a> </h3>
-@include('flash-message')
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Name">
-            <span style="font-size: 15px" class="text-danger">@error('name'){{$message}}@enderror</span>
-        </div>
-        <div class="col-sm-5">
-            <label for="image"  class="form-label">Image</label>
-            <input class="form-control" name="functionhall_image" id="image" type="file" />
-            <span style="font-size: 15px" class="text-danger">@error('functionhall_image'){{$message}}@enderror</span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <label for="price" class="form-label">Price</label>
-            <input type="text" class="form-control" name="price" id="price" placeholder="Price">
-            <span style="font-size: 15px" class="text-danger">@error('price'){{$message}}@enderror</span>
-        </div>
-        <div class="col-sm-5">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-select" name="status" aria-label="status">
-                <option selected value="available">Available</option>
-                <option value="notavailable">Not Available</option>
-            </select>
-            <span style="font-size: 15px" class="text-danger">@error('status'){{$message}}@enderror</span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-
-        <div class="col-sm-10">
-            <label for="description" class="form-label">Description</label>
-            <textarea type="text" name="description" class="form-control" id="description" placeholder="Description" > </textarea>
-            <span style="font-size: 15px" class="text-danger">@error('description'){{$message}}@enderror</span>
-        </div>
+<div class="card" id="card-content">
+    <div class="card-header">
 
     </div>
-    <br>
-    <button type="submit" class="col-sm-10 btn btn-primary">Save</button>
+    <div class="card-body">
+        <form class="form-style-9" action="{{route('admin.save.functionhall')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <h3>Add Function Hall  <a href='/admin/functionhall-list'>Back to List</a> </h3>
+            @include('flash-message')
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                    <span style="font-size: 15px" class="text-danger">@error('name'){{$message}}@enderror</span>
+                </div>
+                <div class="col-sm-5">
+                    <label for="image"  class="form-label">Image</label>
+                    <input class="form-control" name="functionhall_image" id="image" type="file" />
+                    <span style="font-size: 15px" class="text-danger">@error('functionhall_image'){{$message}}@enderror</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" name="price" id="price" placeholder="Price">
+                    <span style="font-size: 15px" class="text-danger">@error('price'){{$message}}@enderror</span>
+                </div>
+                <div class="col-sm-5">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" name="status" aria-label="status">
+                        <option selected value="available">Available</option>
+                        <option value="notavailable">Not Available</option>
+                    </select>
+                    <span style="font-size: 15px" class="text-danger">@error('status'){{$message}}@enderror</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-sm-10">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea type="text" name="description" class="form-control" id="description" placeholder="Description" > </textarea>
+                    <span style="font-size: 15px" class="text-danger">@error('description'){{$message}}@enderror</span>
+                </div>
+
+            </div>
+            <br>
+            <button type="submit" class="col-sm-10 btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
 
 
 
 
-</form>
+
+
 </body>
 </html>
 
