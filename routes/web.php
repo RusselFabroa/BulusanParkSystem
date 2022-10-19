@@ -303,6 +303,7 @@ Route::get('/inventorytreehouse-paid', [App\Http\Controllers\Admin\InventoryCott
 //ShowCalendar
         Route::get('/showCalendar',[AdminController::class, 'showCalendar']);
 
+        Route::get('/showSMS',[AdminController::class, 'trysms']);
 
     });
 });
